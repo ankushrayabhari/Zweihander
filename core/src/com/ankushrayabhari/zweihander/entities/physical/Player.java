@@ -3,6 +3,7 @@ package com.ankushrayabhari.zweihander.entities.physical;
 import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.core.KeyboardController;
+import com.ankushrayabhari.zweihander.items.Inventory;
 import com.ankushrayabhari.zweihander.items.weapons.player.SampleWeapon;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,18 +12,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Player class that wreaks havoc on your peasant minds.
- * ~/Development/Zweihander/core/src/com/ankushrayabhari/zweihander/screens
+ * Player class
+ *
  * @author Ankush Rayabhari
  */
 public class Player extends PhysicalEntity {
     private Vector2 movementDirection;
-    private SampleWeapon weapon;
     private final float SPEED;
     private WalkAnimation walkAnimation;
     private Constants.DIRECTION lastDirection;
     private Texture healthbar;
-    
+    public Inventory inventory;
+
 	public Player(GameScreen game) {
 		super(game, 20, 100, false, Constants.FILTER_DATA.PLAYER, new Vector2(100, 100), new Vector2(2, 2), 0, true);
 
@@ -31,7 +32,8 @@ public class Player extends PhysicalEntity {
         walkAnimation = new WalkAnimation(false, 13, 2/SPEED);
         lastDirection = Constants.DIRECTION.DOWN;
         healthbar = Assets.getTex("textures/lofi_halls.png");
-        weapon = new SampleWeapon(game);
+
+        inventory = new Inventory(new SampleWeapon(game));
 	}
 
 	@Override
@@ -65,9 +67,9 @@ public class Player extends PhysicalEntity {
         
         //Firing
         if (this.getGame().getInputController().isFire1()) {
-        	weapon.fire();
+        	inventory.getActiveWeapon().fire();
         }
-        weapon.update(delta);
+        inventory.getActiveWeapon().update(delta);
 	}
 
 	@Override
@@ -111,7 +113,5 @@ public class Player extends PhysicalEntity {
 	}
 
 	@Override
-	public void onCollide(PhysicalEntity entity) {
-
-	}
+	public void onCollide(PhysicalEntity entity) {}
 }

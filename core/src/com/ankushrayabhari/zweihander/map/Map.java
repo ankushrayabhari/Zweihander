@@ -1,7 +1,5 @@
 package com.ankushrayabhari.zweihander.map;
 
-import java.util.Random;
-
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.map.generation.BiomeData;
 import com.ankushrayabhari.zweihander.map.generation.Center;
@@ -17,15 +15,17 @@ import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Map {
+import java.util.Random;
+
+public class Map implements Disposable {
 	private ShaderProgram textureShader;
 	private VoronoiGraph graph;
 	private GameScreen game;
@@ -111,7 +111,7 @@ public class Map {
 		}
 		
 		minimap = new Texture(pixmap);
-		
+
 		//map border
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -146,8 +146,8 @@ public class Map {
 		textureShader.end();
 	}
 	
-	public void renderMinimap(SpriteBatch batch, float x, float y, float width, float height) {
-		batch.draw(minimap, x, y, width, height);
+	public Texture getMinimap() {
+		return minimap;
 	}
 	
 	public boolean isWater(Vector2 point) {
@@ -159,10 +159,11 @@ public class Map {
 	public VoronoiGraph getGraph() {
 		return graph;
 	}
-	
+
+    @Override
 	public void dispose() {
+        pixmap.dispose();
 		minimap.dispose();
-		pixmap.dispose();
 		
 		graph.dispose();
 		textureShader.dispose();

@@ -3,8 +3,8 @@ package com.ankushrayabhari.zweihander.screens;
 import com.ankushrayabhari.zweihander.Zweihander;
 import com.ankushrayabhari.zweihander.core.CollisionListener;
 import com.ankushrayabhari.zweihander.core.Constants;
-import com.ankushrayabhari.zweihander.core.HeadsUpDisplay;
 import com.ankushrayabhari.zweihander.core.KeyboardController;
+import com.ankushrayabhari.zweihander.core.hud.HeadsUpDisplay;
 import com.ankushrayabhari.zweihander.entities.Entity;
 import com.ankushrayabhari.zweihander.entities.EntityComparator;
 import com.ankushrayabhari.zweihander.entities.physical.Player;
@@ -13,6 +13,7 @@ import com.ankushrayabhari.zweihander.map.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,8 +39,9 @@ public class GameScreen implements Screen {
     private Map map;
     private HeadsUpDisplay hud;
     private ShapeRenderer shapeRenderer;
-    
-	public GameScreen(Zweihander zweihander) {
+    private  Music music;
+
+    public GameScreen(Zweihander zweihander) {
 		this.zweihander = zweihander;
     }
 
@@ -56,13 +58,10 @@ public class GameScreen implements Screen {
 
         entityList = new Array<Entity>();
 
-
         comparator = new EntityComparator();
 
         world = new World(new Vector2(0,0), false);
         world.setContactListener(new CollisionListener());
-
-
 
         player = (Player) addEntity(new Player(this));
 
@@ -71,10 +70,16 @@ public class GameScreen implements Screen {
 
         inputController = new KeyboardController();
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(hud);
         inputMultiplexer.addProcessor(inputController);
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         this.addEntity(new Enemy(this));
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("music/sleuth.ogg"));
+        music.setLooping(true);
+        music.setVolume(0.5f);
+        //music.play();
     }
 
 	@Override
@@ -103,7 +108,7 @@ public class GameScreen implements Screen {
         if(Zweihander.DEBUG) debugRenderer.render(world, camera.combined);
         
         //Render HUD
-        hud.render(batch);
+        hud.draw();
 	}
 
     private void updateEntities(float delta) {
@@ -162,6 +167,8 @@ public class GameScreen implements Screen {
         world.dispose();
         debugRenderer.dispose();
         batch.dispose();
+        hud.dispose();
+        music.dispose();
 	}
 
     public KeyboardController getInputController() { return inputController; }

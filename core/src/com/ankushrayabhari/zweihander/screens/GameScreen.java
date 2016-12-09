@@ -1,7 +1,5 @@
 package com.ankushrayabhari.zweihander.screens;
 
-import java.util.Iterator;
-
 import com.ankushrayabhari.zweihander.Zweihander;
 import com.ankushrayabhari.zweihander.core.CollisionListener;
 import com.ankushrayabhari.zweihander.core.Constants;
@@ -25,8 +23,10 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.Iterator;
+
 public class GameScreen implements Screen {
-	private Zweihander fbla; // move to superclass later (probably)
+	private Zweihander zweihander; // move to superclass later (probably)
     private KeyboardController inputController;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -39,31 +39,41 @@ public class GameScreen implements Screen {
     private HeadsUpDisplay hud;
     private ShapeRenderer shapeRenderer;
     
-	public GameScreen(Zweihander fbla) {
-		this.fbla = fbla;
+	public GameScreen(Zweihander zweihander) {
+		this.zweihander = zweihander;
+    }
 
-		entityList = new Array<Entity>();
-		camera = new OrthographicCamera(Gdx.graphics.getWidth()/20, Gdx.graphics.getHeight()/20);
-		
-		batch = new SpriteBatch();
-		shapeRenderer = new ShapeRenderer();
-		comparator = new EntityComparator();
-		
+    @Override
+    public void show() {
+        camera = new OrthographicCamera(
+                Gdx.graphics.getWidth()/20,
+                Gdx.graphics.getHeight()/20
+        );
+
+        batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        if(Zweihander.DEBUG) debugRenderer = new Box2DDebugRenderer();
+
+        entityList = new Array<Entity>();
+
+
+        comparator = new EntityComparator();
+
         world = new World(new Vector2(0,0), false);
         world.setContactListener(new CollisionListener());
-        
-        if(Zweihander.DEBUG) debugRenderer = new Box2DDebugRenderer();
-        
+
+
+
         player = (Player) addEntity(new Player(this));
-        
+
         map = new Map(this);
         hud = new HeadsUpDisplay(this);
-        		
-        inputController = new KeyboardController(); 
-		InputMultiplexer inputMultiplexer = new InputMultiplexer();
+
+        inputController = new KeyboardController();
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(inputController);
-        Gdx.input.setInputProcessor(inputMultiplexer);        
-        
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
         this.addEntity(new Enemy(this));
     }
 
@@ -124,11 +134,6 @@ public class GameScreen implements Screen {
     public Entity addEntity(Entity entity) {
         entityList.add(entity);
         return entity;
-    }
-
-    @Override
-    public void show() {
-
     }
 
 	@Override

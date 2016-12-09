@@ -1,7 +1,11 @@
 package com.ankushrayabhari.zweihander;
 
 import com.ankushrayabhari.zweihander.core.Preferences;
+import com.ankushrayabhari.zweihander.screens.CreditsScreen;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
+import com.ankushrayabhari.zweihander.screens.MainMenuScreen;
+import com.ankushrayabhari.zweihander.screens.OptionScreen;
+import com.ankushrayabhari.zweihander.screens.PlayScreen;
 import com.badlogic.gdx.Game;
 
 /**
@@ -12,15 +16,24 @@ import com.badlogic.gdx.Game;
 public class Zweihander extends Game {
 	public static boolean DEBUG = true;
 
+    public CreditsScreen creditsScreen;
+    public GameScreen gameScreen;
+    public PlayScreen playScreen;
+    public MainMenuScreen mainMenuScreen;
+    public OptionScreen optionScreen;
+
 	public Zweihander() {
+        creditsScreen = new CreditsScreen(this);
+        gameScreen = new GameScreen(this);
+        playScreen = new PlayScreen(this);
+        mainMenuScreen = new MainMenuScreen(this);
+        optionScreen = new OptionScreen(this);
 	}
 
 	@Override
 	public void create() {
-// DEBUG = false; //comment/uncomment for easy testing
-
-		Preferences.init(); // initialize this service so we can save data
-		setScreen(new GameScreen(this));
+		Preferences.init();
+		setScreen(mainMenuScreen);
 	}
 
 }

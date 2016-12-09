@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * Player class that wreaks havoc on your peasant minds.
- *
+ * ~/Development/Zweihander/core/src/com/ankushrayabhari/zweihander/screens
  * @author Ankush Rayabhari
  */
 public class Player extends PhysicalEntity {

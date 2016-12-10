@@ -32,7 +32,7 @@ public class Player extends PhysicalEntity {
 
         inventory = new Inventory(new SampleWeapon(game), new SampleArmor(), new SampleTome(game), new SampleRing());
 
-        level = 1;
+        level = 100;
         mana = 100;
         baseMaxMana = 100;
         baseDefense = 10;
@@ -43,6 +43,10 @@ public class Player extends PhysicalEntity {
         walkAnimation = new WalkAnimation(false, 19, 2/getSpeed());
         lastDirection = Constants.DIRECTION.DOWN;
         healthbar = Assets.getTex("textures/lofi_halls.png");
+
+        for(int i = 0; i < 8; i++) {
+            inventory.addItem(new SampleWeapon(game));
+        }
 	}
 
 	@Override

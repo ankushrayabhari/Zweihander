@@ -6,6 +6,7 @@ import com.ankushrayabhari.zweihander.items.rings.Ring;
 import com.ankushrayabhari.zweihander.items.weapons.Weapon;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 /**
  * Class Description
@@ -13,6 +14,7 @@ import java.util.ArrayList;
  * @author Ankush Rayabhari
  */
 public class Inventory {
+    private final int InventorySize = 8;
     private ArrayList<Item> items;
     private Weapon activeWeapon;
     private Ring activeRing;
@@ -20,7 +22,7 @@ public class Inventory {
     private Armor activeArmor;
 
     public Inventory(Weapon startWeapon, Armor startArmor, Ability startAbility, Ring startRing) {
-        items =  new ArrayList<Item>(6);
+        items =  new ArrayList<Item>(InventorySize);
         activeWeapon = startWeapon;
         activeRing = startRing;
         activeArmor = startArmor;
@@ -28,7 +30,7 @@ public class Inventory {
     }
 
     public boolean addItem(Item item) {
-        if(items.size() == 6) {
+        if(items.size() == InventorySize) {
             return false;
         }
         else {
@@ -57,6 +59,9 @@ public class Inventory {
         return activeWeapon.getManaBonus()+activeRing.getManaBonus()+activeArmor.getManaBonus()+activeAbility.getManaBonus();
     }
 
+    public ListIterator<Item> iterator() {
+        return items.listIterator();
+    }
 
     public void removeItem(int index) {
         items.remove(index);

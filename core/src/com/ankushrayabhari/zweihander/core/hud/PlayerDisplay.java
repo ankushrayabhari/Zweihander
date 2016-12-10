@@ -18,8 +18,7 @@ public class PlayerDisplay extends Actor {
     private GameScreen game;
     private BitmapFont font;
     private Texture texture;
-    private float WidthConversion;
-    private float HeightConversion;
+    private float WidthConversion, HeightConversion;
 
     public PlayerDisplay(GameScreen game) {
         this.game = game;
@@ -46,22 +45,26 @@ public class PlayerDisplay extends Actor {
         font.getData().setScale(1);
         font.draw(batch, level, this.getX() + 13 * WidthConversion, this.getY() + this.getHeight() - 13 * HeightConversion, 0, level.length(), 12 * WidthConversion, Align.left, false, null);
 
+        //xp bar
+        batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 4 * HeightConversion, 24 * WidthConversion, 2 * HeightConversion, 53, 561, 21, 2, false, false);
+        batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 4 * HeightConversion, game.getPlayer().getHealthPercentage()*24*WidthConversion, 2*HeightConversion, 31, 561, 21, 2, false, false);
+
         //health bar
-        batch.draw(texture, this.getX() + 15 * WidthConversion, this.getY() + this.getHeight() - 6 * HeightConversion, 21 * WidthConversion, 2 * HeightConversion, 53, 553, 21, 2, false, false);
-        batch.draw(texture, this.getX() + 15 * WidthConversion, this.getY() + this.getHeight() - 6 * HeightConversion, game.getPlayer().getHealthPercentage()*21*WidthConversion, 2*HeightConversion, 31, 553, 21, 2, false, false);
+        batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 7.5f * HeightConversion, 24 * WidthConversion, 2 * HeightConversion, 53, 553, 21, 2, false, false);
+        batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 7.5f * HeightConversion, game.getPlayer().getHealthPercentage()*24*WidthConversion, 2*HeightConversion, 31, 553, 21, 2, false, false);
 
         //mana bar
-        batch.draw(texture, this.getX() + 15 * WidthConversion, this.getY() + this.getHeight() - 10 * HeightConversion, 21*WidthConversion, 2*HeightConversion, 53, 557, 21, 2, false, false);
-        batch.draw(texture, this.getX() + 15 * WidthConversion, this.getY() + this.getHeight() - 10 * HeightConversion, game.getPlayer().getManaPercentage() * 21 * WidthConversion, 2 * HeightConversion, 31, 557, 21, 2, false, false);
+        batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 11 * HeightConversion, 24*WidthConversion, 2*HeightConversion, 53, 557, 21, 2, false, false);
+        batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 11 * HeightConversion, game.getPlayer().getManaPercentage() * 24 * WidthConversion, 2 * HeightConversion, 31, 557, 21, 2, false, false);
 
         //stats
         String attack = Integer.toString(game.getPlayer().getAttack());
         String defense = Integer.toString(game.getPlayer().getDefense());
         String speed = Integer.toString(game.getPlayer().getSpeed());
         font.getData().setScale(0.8f);
-        font.draw(batch, attack, this.getX() + 36 * WidthConversion, this.getY() + this.getHeight() - 6.5f * HeightConversion, 0, attack.length(), 9 * WidthConversion, Align.right, false, null);
-        font.draw(batch, defense, this.getX() + 36 * WidthConversion, this.getY() + this.getHeight() - 14.5f * HeightConversion, 0, attack.length(), 9 * WidthConversion, Align.right, false, null);
-        font.draw(batch, speed, this.getX() + 36 * WidthConversion, this.getY() + this.getHeight() - 22.5f * HeightConversion, 0, attack.length(), 9 * WidthConversion, Align.right, false, null);
+        font.draw(batch, attack, this.getX() + 35 * WidthConversion, this.getY() + this.getHeight() - 6.5f * HeightConversion, 0, attack.length(), 9 * WidthConversion, Align.right, false, null);
+        font.draw(batch, defense, this.getX() + 35 * WidthConversion, this.getY() + this.getHeight() - 14.5f * HeightConversion, 0, attack.length(), 9 * WidthConversion, Align.right, false, null);
+        font.draw(batch, speed, this.getX() + 35 * WidthConversion, this.getY() + this.getHeight() - 22.5f * HeightConversion, 0, attack.length(), 9 * WidthConversion, Align.right, false, null);
 
     }
 }

@@ -45,7 +45,7 @@ public class InventoryDisplay extends Table {
     public void refreshItemDisplay() {
         WidthConversion = this.getWidth()/55;
         HeightConversion = this.getHeight()/31;
-
+        this.clearChildren();
         ListIterator<Item> iterator = this.game.getPlayer().getInventory().iterator();
         int count = 0;
         while(iterator.hasNext()) {
@@ -54,7 +54,6 @@ public class InventoryDisplay extends Table {
             }
 
             this.add(new InventoryItem(iterator.next())).width(9*WidthConversion).height(9*HeightConversion).expand().center();
-
             count++;
         }
     }

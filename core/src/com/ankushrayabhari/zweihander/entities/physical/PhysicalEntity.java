@@ -3,9 +3,7 @@ package com.ankushrayabhari.zweihander.entities.physical;
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.entities.Entity;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -21,12 +19,14 @@ public abstract class PhysicalEntity extends Entity {
 	private GameScreen game;
     private Body body;
     protected int health;
+    protected int maxHealth;
     private Vector2 dimensions;
     
-    protected PhysicalEntity(GameScreen game, int zIndex, int health, boolean staticBody, Constants.FILTER_DATA filterData, Vector2 position, Vector2 dimensions, float angle, boolean massive) {
+    protected PhysicalEntity(GameScreen game, int zIndex, int health, int maxHealth, boolean staticBody, Constants.FILTER_DATA filterData, Vector2 position, Vector2 dimensions, float angle, boolean massive) {
     	super(zIndex);
     	this.game = game;
         this.health = health;
+        this.maxHealth = maxHealth;
     	this.dimensions = dimensions;
     	
         BodyDef bodyDef = new BodyDef();
@@ -90,12 +90,10 @@ public abstract class PhysicalEntity extends Entity {
     }
     
     @Override
-    public void update(float delta) {};
+    public abstract void update(float delta);
     
     @Override
-    public void draw(SpriteBatch batch) {
-
-    };
+    public abstract void draw(SpriteBatch batch);
     
     public abstract void onCollide(PhysicalEntity entity);
 
@@ -109,6 +107,7 @@ public abstract class PhysicalEntity extends Entity {
     
     public void addHealth(int amount) {
     	this.health += amount;
+        if(this.health > this.getMaxHealth()) health = getMaxHealth();
     }
  
     public Body getBody() { return body; }
@@ -116,4 +115,10 @@ public abstract class PhysicalEntity extends Entity {
     public Vector2 getDimensions() { return dimensions; }
     
 	public GameScreen getGame() { return game; }
+
+    abstract protected int getMaxHealth();
+
+    public float getHealthPercentage() {
+        return (float) health/(float) getMaxHealth();
+    }
 }

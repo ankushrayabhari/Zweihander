@@ -14,13 +14,13 @@ public class HeadsUpDisplay extends Stage {
         super(new ScreenViewport());
 		this.game = game;
 
-        playerDisplay = new PlayerDisplay(game);
-        playerDisplay.setBounds(Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250 - 250 / 56 * 31, 250, 250 / 56 * 31);
-        this.addActor(playerDisplay);
-
         minimap = new Minimap(game);
         minimap.setBounds(Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250, 250, 250);
         this.addActor(minimap);
+
+        playerDisplay = new PlayerDisplay(game);
+        playerDisplay.setBounds(Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250 - 250 / 56 * 31, 250, 250 / 56 * 31);
+        this.addActor(playerDisplay);
 	}
 
     public void dispose() {

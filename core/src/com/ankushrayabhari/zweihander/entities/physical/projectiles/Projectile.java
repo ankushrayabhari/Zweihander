@@ -7,7 +7,6 @@ import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -23,7 +22,7 @@ public class Projectile extends PhysicalEntity {
     private Sprite sprite;
 
     public Projectile(GameScreen game, Constants.FILTER_DATA filterData, Vector2 originalPosition, Vector2 fireDirection) {
-        super(game, 50, 1, false, filterData, originalPosition, new Vector2(1.5f,1.5f), (float) Math.atan2(-fireDirection.x, fireDirection.y), false);
+        super(game, 50, 1, 1, false, filterData, originalPosition, new Vector2(1.5f,1.5f), (float) Math.atan2(-fireDirection.x, fireDirection.y), false);
         RANGE = (float) Math.pow(15, 2);
         SPEED = 25;
         DAMAGE = 10;
@@ -55,4 +54,7 @@ public class Projectile extends PhysicalEntity {
         if(entity != null) entity.dealDamage(DAMAGE);
     	this.setDead(true);
     }
+
+    @Override
+    public int getMaxHealth()  { return maxHealth; }
 }

@@ -19,7 +19,8 @@ public class WalkAnimation {
     private Texture atlas;
     private TextureRegion[][] frames, waterFrames;
     private AnimatedSprite upSprite, downSprite, leftSprite, rightSprite, waterUpSprite, waterDownSprite, waterLeftSprite, waterRightSprite;
-    
+    private boolean enemy;
+
     public WalkAnimation(boolean enemy, int row, float duration) {
         atlas = Assets.getTex("textures/spriteSheet.png");
         int column = !enemy ? 8 : 128; 
@@ -44,12 +45,25 @@ public class WalkAnimation {
             waterLeftSprite = new AnimatedSprite(new Animation(duration, new Array<TextureRegion>(waterFrames[2]), PlayMode.LOOP));
             waterUpSprite = new AnimatedSprite(new Animation(duration, new Array<TextureRegion>(waterFrames[3]), PlayMode.LOOP));
         }
-        
-        
+
+
         rightSprite = new AnimatedSprite(new Animation(duration, new Array<TextureRegion>(frames[0]), PlayMode.LOOP));
         downSprite = new AnimatedSprite(new Animation(duration, new Array<TextureRegion>(frames[1]), PlayMode.LOOP));
         leftSprite = new AnimatedSprite(new Animation(duration, new Array<TextureRegion>(frames[2]), PlayMode.LOOP));
         upSprite = new AnimatedSprite(new Animation(duration, new Array<TextureRegion>(frames[3]), PlayMode.LOOP));
+    }
+
+    public void setDuration(float duration) {
+        upSprite.getAnimation().setFrameDuration(duration);
+        downSprite.getAnimation().setFrameDuration(duration);
+        leftSprite.getAnimation().setFrameDuration(duration);
+        rightSprite.getAnimation().setFrameDuration(duration);
+        if(!enemy) {
+            waterUpSprite.getAnimation().setFrameDuration(duration);
+            waterDownSprite.getAnimation().setFrameDuration(duration);
+            waterLeftSprite.getAnimation().setFrameDuration(duration);
+            waterRightSprite.getAnimation().setFrameDuration(duration);
+        }
     }
 
     public AnimatedSprite getMovingSprite(DIRECTION direction, boolean water) {

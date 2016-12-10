@@ -9,7 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -21,7 +20,7 @@ public class Enemy extends PhysicalEntity {
 	private Texture healthbar;
 	
 	public Enemy(GameScreen game) {
-		super(game, 10, 100, false, Constants.FILTER_DATA.ENEMY, new Vector2(105, 105), new Vector2(2, 2), 0, true);
+		super(game, 10, 100, 100, false, Constants.FILTER_DATA.ENEMY, new Vector2(105, 105), new Vector2(2, 2), 0, true);
 		movementDirection = new Vector2(0,0);
 		SPEED = 10;
 		walkAnimation = new WalkAnimation(true, 19, 2/SPEED);
@@ -30,8 +29,7 @@ public class Enemy extends PhysicalEntity {
 	}
 	
 	@Override
-	public void update(float delta) {	
-		super.update(delta);
+	public void update(float delta) {
 		Vector2 playerPosition = this.getGame().getPlayer().getPosition();
 		Vector2 position = this.getPosition();
 		Vector2 direction = new Vector2(playerPosition.x-position.x, playerPosition.y-position.y);
@@ -54,7 +52,6 @@ public class Enemy extends PhysicalEntity {
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		super.draw(batch);
 		Sprite sprite;		
         if (movementDirection.isZero()) {
             sprite = walkAnimation.getStaticSprite(lastDirection, false);
@@ -87,11 +84,14 @@ public class Enemy extends PhysicalEntity {
 		sprite.draw(batch);
 		
 		batch.draw(healthbar, position.x-1, position.y-1-0.25f, 2, 0.25f, 53, 553, 21, 2, false, false);
-		batch.draw(healthbar, position.x-1, position.y-1-0.25f, (float) this.health/100*2, 0.25f, 31, 553, 21, 2, false, false);
+		batch.draw(healthbar, position.x-1, position.y-1-0.25f, this.getHealthPercentage()*2, 0.25f, 31, 553, 21, 2, false, false);
 	}
 
 	@Override
 	public void onCollide(PhysicalEntity entity) {
 		
 	}
+
+    @Override
+    public int getMaxHealth()  { return maxHealth; }
 }

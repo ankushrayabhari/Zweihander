@@ -4,7 +4,10 @@ import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.core.KeyboardController;
 import com.ankushrayabhari.zweihander.items.Inventory;
-import com.ankushrayabhari.zweihander.items.weapons.player.SampleWeapon;
+import com.ankushrayabhari.zweihander.items.abilities.tomes.SampleTome;
+import com.ankushrayabhari.zweihander.items.armor.SampleArmor;
+import com.ankushrayabhari.zweihander.items.rings.SampleRing;
+import com.ankushrayabhari.zweihander.items.weapons.SampleWeapon;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,28 +21,32 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Player extends PhysicalEntity {
     private Vector2 movementDirection;
-    private final float SPEED;
     private WalkAnimation walkAnimation;
     private Constants.DIRECTION lastDirection;
     private Texture healthbar;
-    public Inventory inventory;
+    private Inventory inventory;
+    private int level, mana, baseMaxMana, baseDefense, baseAttack, baseSpeed;
 
 	public Player(GameScreen game) {
-		super(game, 20, 100, false, Constants.FILTER_DATA.PLAYER, new Vector2(100, 100), new Vector2(2, 2), 0, true);
+		super(game, 20, 100, 100, false, Constants.FILTER_DATA.PLAYER, new Vector2(100, 100), new Vector2(2, 2), 0, true);
 
-		SPEED = 16;
+        inventory = new Inventory(new SampleWeapon(game), new SampleArmor(), new SampleTome(game), new SampleRing());
+
+        level = 1;
+        mana = 100;
+        baseMaxMana = 100;
+        baseDefense = 10;
+        baseAttack = 10;
+        baseSpeed = 15;
+
 		movementDirection = new Vector2(0,0);
-        walkAnimation = new WalkAnimation(false, 13, 2/SPEED);
+        walkAnimation = new WalkAnimation(false, 19, 2/getSpeed());
         lastDirection = Constants.DIRECTION.DOWN;
         healthbar = Assets.getTex("textures/lofi_halls.png");
-
-        inventory = new Inventory(new SampleWeapon(game));
 	}
 
 	@Override
 	public void update(float delta) {
-		super.update(delta);
-		
         //Movement
         movementDirection.set(0, 0);
         KeyboardController keyboardController = this.getGame().getInputController();
@@ -57,10 +64,10 @@ public class Player extends PhysicalEntity {
         }
         movementDirection.nor();
         if(this.getGame().getMap().isWater(this.getPosition())) {
-        	movementDirection.scl(SPEED-4);
+        	movementDirection.scl(getSpeed()*2f/3f);
         }
         else {
-        	movementDirection.scl(SPEED);
+        	movementDirection.scl(getSpeed());
         }
         this.getBody().setLinearVelocity(movementDirection);
         
@@ -74,7 +81,6 @@ public class Player extends PhysicalEntity {
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		super.draw(batch);
         Sprite sprite;
         boolean water = this.getGame().getMap().isWater(this.getPosition());
     	if (movementDirection.isZero()) {
@@ -105,13 +111,55 @@ public class Player extends PhysicalEntity {
     	
         Vector2 position = this.getPosition();
         float height = water ? 1.5f : 2;
-        sprite.setBounds(position.x-1, position.y-1, 2, height);		
+        sprite.setBounds(position.x-1, position.y-1, 2, height);
 		sprite.draw(batch);
-		
-		batch.draw(healthbar, position.x-1, position.y-1-0.25f, 2, 0.25f, 53, 561, 21, 2, false, false);
-		batch.draw(healthbar, position.x-1, position.y-1-0.25f, this.health/100*2, 0.25f, 31, 561, 21, 2, false, false);
 	}
 
 	@Override
 	public void onCollide(PhysicalEntity entity) {}
+    public Inventory getInventory() {
+        return inventory;
+    }
+    public void levelUp() {
+        level++;
+    }
+    public int getLevel() {
+        return level;
+    }
+
+    public float getManaPercentage() {
+        return (float) mana/(float) getMaxMana();
+    }
+
+    public int getAttack() {
+        return baseAttack+inventory.getAttackBonus();
+    }
+
+    public int getDefense() {
+        return baseDefense+inventory.getDefenseBonus();
+    }
+
+    public int getSpeed() {
+        return baseSpeed+inventory.getSpeedBonus();
+    }
+
+    public int getMaxMana() {
+        return baseMaxMana+inventory.getManaBonus();
+    }
+
+    @Override
+    public int getMaxHealth() {
+        return this.maxHealth+inventory.getHealthBonus();
+    }
+
+    public void dealMana(int amount) {
+        mana -= amount;
+        if(mana < 0) {
+            mana = 0;
+        }
+    }
+    public void addMana(int amount) {
+        mana += amount;
+        if(mana > getMaxMana()) mana = getMaxMana();
+    }
 }

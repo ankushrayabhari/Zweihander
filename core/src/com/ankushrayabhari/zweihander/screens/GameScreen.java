@@ -39,7 +39,7 @@ public class GameScreen implements Screen {
     private Map map;
     private HeadsUpDisplay hud;
     private ShapeRenderer shapeRenderer;
-    private  Music music;
+    private Music music;
 
     public GameScreen(Zweihander zweihander) {
 		this.zweihander = zweihander;

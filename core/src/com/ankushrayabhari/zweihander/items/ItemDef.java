@@ -10,11 +10,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class ItemDef {
     private String name, description;
     private TextureRegion icon;
-    private int attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus;
+    private int id, attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus, vitalityBonus, wisdomBonus;
 
     public ItemDef() {}
 
-    public ItemDef(String name, String description, TextureRegion icon, int attackBonus, int defenseBonus, int speedBonus, int healthBonus, int manaBonus) {
+    public ItemDef(String name, String description, TextureRegion icon, int attackBonus, int defenseBonus, int speedBonus, int healthBonus, int manaBonus, int vitalityBonus, int wisdomBonus) {
         this.name = name;
         this.description = description;
         this.icon = icon;
@@ -23,6 +23,8 @@ public class ItemDef {
         this.speedBonus = speedBonus;
         this.healthBonus = healthBonus;
         this.manaBonus = manaBonus;
+        this.vitalityBonus = vitalityBonus;
+        this.wisdomBonus = wisdomBonus;
     }
 
     public String getName() {
@@ -72,5 +74,23 @@ public class ItemDef {
     }
     public void setManaBonus(int manaBonus) {
         this.manaBonus = manaBonus;
+    }
+    public int getVitalityBonus() {
+        return vitalityBonus;
+    }
+    public void setVitalityBonus(int vitalityBonus) {
+        this.vitalityBonus = vitalityBonus;
+    }
+    public int getWisdomBonus() {
+        return wisdomBonus;
+    }
+    public void setWisdomBonus(int wisdomBonus) {
+        this.wisdomBonus = wisdomBonus;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -1,8 +1,8 @@
 package com.ankushrayabhari.zweihander.items;
 
 import com.ankushrayabhari.zweihander.items.abilities.Ability;
-import com.ankushrayabhari.zweihander.items.armor.Armor;
-import com.ankushrayabhari.zweihander.items.rings.Ring;
+import com.ankushrayabhari.zweihander.items.misc.Armor;
+import com.ankushrayabhari.zweihander.items.misc.Ring;
 import com.ankushrayabhari.zweihander.items.weapons.Weapon;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 
@@ -96,5 +96,10 @@ public class Inventory {
     public int getManaBonus() {
         return activeWeapon.getManaBonus()+activeRing.getManaBonus()+activeArmor.getManaBonus()+activeAbility.getManaBonus();
     }
-
+    public int getWisdomBonus() {
+        return activeWeapon.getWisdomBonus()+activeRing.getWisdomBonus()+activeArmor.getWisdomBonus()+activeAbility.getWisdomBonus();
+    }
+    public int getVitalityBonus() {
+        return activeWeapon.getVitalityBonus()+activeRing.getVitalityBonus()+activeArmor.getVitalityBonus()+activeAbility.getVitalityBonus();
+    }
 }

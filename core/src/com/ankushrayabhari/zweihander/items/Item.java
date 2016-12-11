@@ -2,11 +2,11 @@ package com.ankushrayabhari.zweihander.items;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public abstract class Item {
+public class Item {
 	private String name;
 	private String description;
 	private TextureRegion icon;
-    private int attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus;
+    private int attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus, wisdomBonus, vitalityBonus;
 
 	public Item(ItemDef itemDef) {
         this.name = itemDef.getName();
@@ -18,6 +18,8 @@ public abstract class Item {
         this.speedBonus = itemDef.getSpeedBonus();
         this.healthBonus = itemDef.getHealthBonus();
         this.manaBonus = itemDef.getManaBonus();
+        this.vitalityBonus = itemDef.getVitalityBonus();
+        this.wisdomBonus = itemDef.getWisdomBonus();
 	}
 
 
@@ -45,4 +47,6 @@ public abstract class Item {
     public int getManaBonus() {
         return manaBonus;
     }
+    public int getWisdomBonus() { return wisdomBonus; }
+    public int getVitalityBonus() { return vitalityBonus; }
 }

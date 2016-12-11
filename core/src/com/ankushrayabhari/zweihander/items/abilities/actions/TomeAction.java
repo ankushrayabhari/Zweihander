@@ -1,4 +1,4 @@
-package com.ankushrayabhari.zweihander.items.abilities.action;
+package com.ankushrayabhari.zweihander.items.abilities.actions;
 
 import com.ankushrayabhari.zweihander.items.Action;
 import com.ankushrayabhari.zweihander.screens.GameScreen;

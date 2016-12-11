@@ -9,7 +9,7 @@ import com.ankushrayabhari.zweihander.items.ItemDef;
  * @author Ankush Rayabhari
  */
 public class WeaponDef extends ItemDef {
-    private int id;
+
     private float delay;
     private Action action;
 
@@ -21,10 +21,4 @@ public class WeaponDef extends ItemDef {
     }
     public float getDelay() { return delay; }
     public Action getAction() { return action; }
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
 }

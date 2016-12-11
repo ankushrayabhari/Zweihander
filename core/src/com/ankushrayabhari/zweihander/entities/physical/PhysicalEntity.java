@@ -18,7 +18,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public abstract class PhysicalEntity extends Entity {
 	private GameScreen game;
     private Body body;
-    protected int health;
+    protected float health;
     protected int maxHealth;
     private Vector2 dimensions;
     
@@ -97,7 +97,7 @@ public abstract class PhysicalEntity extends Entity {
     
     public abstract void onCollide(PhysicalEntity entity);
 
-    public void dealDamage(int amount) {
+    public void dealDamage(float amount) {
     	this.health -= amount;
     	if(this.health <= 0) {
     		this.setDead(true);
@@ -105,7 +105,7 @@ public abstract class PhysicalEntity extends Entity {
     	
     }
     
-    public void addHealth(int amount) {
+    public void addHealth(float amount) {
     	this.health += amount;
         if(this.health > this.getMaxHealth()) health = getMaxHealth();
     }
@@ -119,6 +119,6 @@ public abstract class PhysicalEntity extends Entity {
     abstract protected int getMaxHealth();
 
     public float getHealthPercentage() {
-        return (float) health/(float) getMaxHealth();
+        return health/(float) getMaxHealth();
     }
 }

@@ -1,15 +1,14 @@
 package com.ankushrayabhari.zweihander.entities.physical;
 
-import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.core.KeyboardController;
 import com.ankushrayabhari.zweihander.items.Inventory;
-import com.ankushrayabhari.zweihander.items.abilities.AbilityFactory;
-import com.ankushrayabhari.zweihander.items.armor.SampleArmor;
-import com.ankushrayabhari.zweihander.items.rings.SampleRing;
-import com.ankushrayabhari.zweihander.items.weapons.WeaponFactory;
+import com.ankushrayabhari.zweihander.items.ItemFactory;
+import com.ankushrayabhari.zweihander.items.abilities.Ability;
+import com.ankushrayabhari.zweihander.items.misc.Armor;
+import com.ankushrayabhari.zweihander.items.misc.Ring;
+import com.ankushrayabhari.zweihander.items.weapons.Weapon;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -23,30 +22,42 @@ public class Player extends PhysicalEntity {
     private Vector2 movementDirection;
     private WalkAnimation walkAnimation;
     private Constants.DIRECTION lastDirection;
-    private Texture healthbar;
     private Inventory inventory;
-    private int level, mana, baseMaxMana, baseDefense, baseAttack, baseSpeed;
+    private int level, baseMaxMana, baseDefense, baseAttack, baseSpeed, baseWisdom, baseVitality;
+    private float mana;
 
 	public Player(GameScreen game) {
 		super(game, 20, 100, 100, false, Constants.FILTER_DATA.PLAYER, new Vector2(100, 100), new Vector2(2, 2), 0, true);
 
-        inventory = new Inventory(game, WeaponFactory.createWeapon(game, 4), new SampleArmor(), AbilityFactory.createAbility(game, 50), new SampleRing());
+        inventory = new Inventory(
+                game,
+                (Weapon) ItemFactory.createItem(game, 4, ItemFactory.ItemTypes.Weapon),
+                (Armor) ItemFactory.createItem(game, 60, ItemFactory.ItemTypes.Armor),
+                (Ability) ItemFactory.createItem(game, 30, ItemFactory.ItemTypes.Ability),
+                (Ring) ItemFactory.createItem(game, 90, ItemFactory.ItemTypes.Ring)
+        );
 
         level = 100;
-        mana = 100;
+
         baseMaxMana = 100;
         baseDefense = 10;
         baseAttack = 10;
-        baseSpeed = 15;
+        baseSpeed = 14;
+        baseWisdom = 10;
+        baseVitality = 10;
+
+        mana = getMaxMana();
 
 		movementDirection = new Vector2(0,0);
         walkAnimation = new WalkAnimation(false, 19, 2/getSpeed());
         lastDirection = Constants.DIRECTION.DOWN;
-        healthbar = Assets.getTex("textures/lofi_halls.png");
 	}
 
 	@Override
 	public void update(float delta) {
+        this.addHealth(1/600f*getVitality());
+        this.addMana(1/600f*getWisdom());
+
         //Movement
         movementDirection.set(0, 0);
         KeyboardController keyboardController = this.getGame().getInputController();
@@ -126,39 +137,38 @@ public class Player extends PhysicalEntity {
     public int getLevel() {
         return level;
     }
-
     public float getManaPercentage() {
-        return (float) mana/(float) getMaxMana();
+        return mana/(float) getMaxMana();
     }
-
     public int getAttack() {
         return baseAttack+inventory.getAttackBonus();
     }
-
     public int getDefense() {
         return baseDefense+inventory.getDefenseBonus();
     }
-
     public int getSpeed() {
         return baseSpeed+inventory.getSpeedBonus();
     }
-
     public int getMaxMana() {
         return baseMaxMana+inventory.getManaBonus();
     }
-
+    public int getWisdom() {
+        return baseWisdom+inventory.getWisdomBonus();
+    }
+    public int getVitality() {
+        return baseVitality+inventory.getVitalityBonus();
+    }
     @Override
     public int getMaxHealth() {
         return this.maxHealth+inventory.getHealthBonus();
     }
-
-    public void dealMana(int amount) {
+    public void dealMana(float amount) {
         mana -= amount;
         if(mana < 0) {
             mana = 0;
         }
     }
-    public void addMana(int amount) {
+    public void addMana(float amount) {
         mana += amount;
         if(mana > getMaxMana()) mana = getMaxMana();
     }

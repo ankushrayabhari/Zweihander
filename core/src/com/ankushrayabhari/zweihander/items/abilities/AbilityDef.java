@@ -9,7 +9,7 @@ import com.ankushrayabhari.zweihander.items.ItemDef;
  * @author Ankush Rayabhari
  */
 public class AbilityDef extends ItemDef {
-    private int id, manaCost;
+    private int manaCost;
     private float delay;
     private Action action;
 
@@ -27,10 +27,4 @@ public class AbilityDef extends ItemDef {
     }
     public float getDelay() { return delay; }
     public Action getAction() { return action; }
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
 }

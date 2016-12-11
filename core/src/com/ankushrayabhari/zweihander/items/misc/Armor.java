@@ -1,4 +1,4 @@
-package com.ankushrayabhari.zweihander.items.armor;
+package com.ankushrayabhari.zweihander.items.misc;
 
 import com.ankushrayabhari.zweihander.items.Item;
 import com.ankushrayabhari.zweihander.items.ItemDef;

@@ -47,7 +47,7 @@ public class PlayerDisplay extends Actor {
 
         //xp bar
         batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 4 * HeightConversion, 24 * WidthConversion, 2 * HeightConversion, 53, 561, 21, 2, false, false);
-        batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 4 * HeightConversion, game.getPlayer().getHealthPercentage()*24*WidthConversion, 2*HeightConversion, 31, 561, 21, 2, false, false);
+        batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 4 * HeightConversion, 24*WidthConversion, 2*HeightConversion, 31, 561, 21, 2, false, false);
 
         //health bar
         batch.draw(texture, this.getX() + 14 * WidthConversion, this.getY() + this.getHeight() - 7.5f * HeightConversion, 24 * WidthConversion, 2 * HeightConversion, 53, 553, 21, 2, false, false);

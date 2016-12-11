@@ -4,7 +4,7 @@ import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.core.KeyboardController;
 import com.ankushrayabhari.zweihander.items.Inventory;
-import com.ankushrayabhari.zweihander.items.abilities.tomes.SampleTome;
+import com.ankushrayabhari.zweihander.items.abilities.AbilityFactory;
 import com.ankushrayabhari.zweihander.items.armor.SampleArmor;
 import com.ankushrayabhari.zweihander.items.rings.SampleRing;
 import com.ankushrayabhari.zweihander.items.weapons.WeaponFactory;
@@ -30,7 +30,7 @@ public class Player extends PhysicalEntity {
 	public Player(GameScreen game) {
 		super(game, 20, 100, 100, false, Constants.FILTER_DATA.PLAYER, new Vector2(100, 100), new Vector2(2, 2), 0, true);
 
-        inventory = new Inventory(game, WeaponFactory.createWeapon(game, 4), new SampleArmor(), new SampleTome(game), new SampleRing());
+        inventory = new Inventory(game, WeaponFactory.createWeapon(game, 4), new SampleArmor(), AbilityFactory.createAbility(game, 50), new SampleRing());
 
         level = 100;
         mana = 100;

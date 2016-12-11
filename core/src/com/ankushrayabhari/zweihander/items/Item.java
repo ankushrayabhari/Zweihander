@@ -8,28 +8,18 @@ public abstract class Item {
 	private TextureRegion icon;
     private int attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus;
 
-	public Item(String name, String description, TextureRegion icon,  int attackBonus, int defenseBonus, int speedBonus, int healthBonus, int manaBonus) {
-        this.name = name;
-		this.description = description;
-		this.icon = icon;
+	public Item(ItemDef itemDef) {
+        this.name = itemDef.getName();
+		this.description = itemDef.getDescription();
+		this.icon = itemDef.getIcon();
 
-        this.attackBonus = attackBonus;
-        this.defenseBonus = defenseBonus;
-        this.speedBonus = speedBonus;
-        this.healthBonus = healthBonus;
-        this.manaBonus = manaBonus;
+        this.attackBonus = itemDef.getAttackBonus();
+        this.defenseBonus = itemDef.getDefenseBonus();
+        this.speedBonus = itemDef.getSpeedBonus();
+        this.healthBonus = itemDef.getHealthBonus();
+        this.manaBonus = itemDef.getManaBonus();
 	}
 
-    public void setFields(Item item) {
-        this.name = item.getName();
-        this.description = item.getDescription();
-        this.icon = item.getIcon();
-        this.attackBonus = item.getAttackBonus();
-        this.defenseBonus = item.getDefenseBonus();
-        this.speedBonus = item.getSpeedBonus();
-        this.healthBonus = item.getHealthBonus();
-        this.manaBonus = item.getManaBonus();
-    }
 
 	public String getName() {
 		return name;

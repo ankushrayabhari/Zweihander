@@ -1,4 +1,4 @@
-package com.ankushrayabhari.zweihander.items.weapons;
+package com.ankushrayabhari.zweihander.items.abilities;
 
 import com.ankushrayabhari.zweihander.items.Action;
 import com.ankushrayabhari.zweihander.items.ItemDef;
@@ -8,11 +8,17 @@ import com.ankushrayabhari.zweihander.items.ItemDef;
  *
  * @author Ankush Rayabhari
  */
-public class WeaponDef extends ItemDef {
-    private int id;
+public class AbilityDef extends ItemDef {
+    private int id, manaCost;
     private float delay;
     private Action action;
 
+    public int getManaCost() {
+        return manaCost;
+    }
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
+    }
     public void setDelay(float delay) {
         this.delay = delay;
     }

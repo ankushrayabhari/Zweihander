@@ -1,6 +1,8 @@
 package com.ankushrayabhari.zweihander.core.hud;
 
 import com.ankushrayabhari.zweihander.items.Item;
+import com.ankushrayabhari.zweihander.items.weapons.Weapon;
+import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,16 +13,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  *
  * @author Ankush Rayabhari
  */
-public class InventoryItem extends Actor {
+public class ItemDisplay extends Actor {
     private float WidthConversion, HeightConversion;
     private Item item;
+    private GameScreen game;
 
-    public InventoryItem(Item item) {
+    public ItemDisplay(final GameScreen game, Item item) {
         this.item = item;
 
         this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Clicked");
+                if(this.getTapCount() >= 2) {
+                    Item clickedItem = ((ItemDisplay) event.getTarget()).getItem();
+                    if(clickedItem instanceof Weapon) {
+                        game.getPlayer().getInventory().setActiveWeapon(clickedItem);
+                    }
+                }
             }
         });
     }

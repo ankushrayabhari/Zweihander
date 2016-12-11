@@ -4,6 +4,7 @@ import com.ankushrayabhari.zweihander.items.abilities.Ability;
 import com.ankushrayabhari.zweihander.items.armor.Armor;
 import com.ankushrayabhari.zweihander.items.rings.Ring;
 import com.ankushrayabhari.zweihander.items.weapons.Weapon;
+import com.ankushrayabhari.zweihander.screens.GameScreen;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -20,8 +21,10 @@ public class Inventory {
     private Ring activeRing;
     private Ability activeAbility;
     private Armor activeArmor;
+    private GameScreen game;
 
-    public Inventory(Weapon startWeapon, Armor startArmor, Ability startAbility, Ring startRing) {
+    public Inventory(GameScreen game, Weapon startWeapon, Armor startArmor, Ability startAbility, Ring startRing) {
+        this.game = game;
         items =  new ArrayList<Item>(InventorySize);
         activeWeapon = startWeapon;
         activeRing = startRing;
@@ -39,26 +42,6 @@ public class Inventory {
         }
     }
 
-    public int getHealthBonus() {
-        return activeWeapon.getHealthBonus()+activeRing.getHealthBonus()+activeArmor.getHealthBonus()+activeAbility.getHealthBonus();
-    }
-
-    public int getAttackBonus() {
-        return activeWeapon.getAttackBonus()+activeRing.getAttackBonus()+activeArmor.getAttackBonus()+activeAbility.getAttackBonus();
-    }
-
-    public int getDefenseBonus() {
-        return activeWeapon.getDefenseBonus()+activeRing.getDefenseBonus()+activeArmor.getDefenseBonus()+activeAbility.getDefenseBonus();
-    }
-
-    public int getSpeedBonus() {
-        return activeWeapon.getSpeedBonus()+activeRing.getSpeedBonus()+activeArmor.getSpeedBonus()+activeAbility.getSpeedBonus();
-    }
-
-    public int getManaBonus() {
-        return activeWeapon.getManaBonus()+activeRing.getManaBonus()+activeArmor.getManaBonus()+activeAbility.getManaBonus();
-    }
-
     public ListIterator<Item> iterator() {
         return items.listIterator();
     }
@@ -71,8 +54,7 @@ public class Inventory {
         return activeWeapon;
     }
 
-    public void setActiveWeapon(Weapon weapon) {
-        activeWeapon = weapon;
+    public void setActiveWeapon(Item weapon) {
     }
 
     public Ring getActiveRing() {
@@ -98,4 +80,21 @@ public class Inventory {
     public void setActiveAbility(Ability ability) {
         activeAbility = ability;
     }
+
+    public int getHealthBonus() {
+        return activeWeapon.getHealthBonus()+activeRing.getHealthBonus()+activeArmor.getHealthBonus()+activeAbility.getHealthBonus();
+    }
+    public int getAttackBonus() {
+        return activeWeapon.getAttackBonus()+activeRing.getAttackBonus()+activeArmor.getAttackBonus()+activeAbility.getAttackBonus();
+    }
+    public int getDefenseBonus() {
+        return activeWeapon.getDefenseBonus()+activeRing.getDefenseBonus()+activeArmor.getDefenseBonus()+activeAbility.getDefenseBonus();
+    }
+    public int getSpeedBonus() {
+        return activeWeapon.getSpeedBonus()+activeRing.getSpeedBonus()+activeArmor.getSpeedBonus()+activeAbility.getSpeedBonus();
+    }
+    public int getManaBonus() {
+        return activeWeapon.getManaBonus()+activeRing.getManaBonus()+activeArmor.getManaBonus()+activeAbility.getManaBonus();
+    }
+
 }

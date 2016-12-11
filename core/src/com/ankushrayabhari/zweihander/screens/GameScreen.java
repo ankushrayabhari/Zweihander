@@ -83,7 +83,7 @@ public class GameScreen implements Screen {
     }
 
 	@Override
-	public void render(float delta) {
+    public void render(float delta) {
 		Gdx.gl20.glClearColor(1, 1, 1, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -94,10 +94,10 @@ public class GameScreen implements Screen {
         
         camera.position.set(player.getBody().getPosition(), 0);
         camera.update();
-        
+
         //Draw Map
-        map.renderMap(); 
-        
+        map.renderMap();
+
         batch.setProjectionMatrix(camera.combined);
         shapeRenderer.setProjectionMatrix(camera.combined);
         
@@ -180,4 +180,6 @@ public class GameScreen implements Screen {
     public Player getPlayer() { return player; }    
     
     public Map getMap() { return map; }
+
+    public HeadsUpDisplay getHud() { return hud; }
 }

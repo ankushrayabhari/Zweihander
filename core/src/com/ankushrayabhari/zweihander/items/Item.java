@@ -9,7 +9,7 @@ public abstract class Item {
     private int attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus;
 
 	public Item(String name, String description, TextureRegion icon,  int attackBonus, int defenseBonus, int speedBonus, int healthBonus, int manaBonus) {
-		this.name = name;
+        this.name = name;
 		this.description = description;
 		this.icon = icon;
 
@@ -19,19 +19,27 @@ public abstract class Item {
         this.healthBonus = healthBonus;
         this.manaBonus = manaBonus;
 	}
-	
+
+    public void setFields(Item item) {
+        this.name = item.getName();
+        this.description = item.getDescription();
+        this.icon = item.getIcon();
+        this.attackBonus = item.getAttackBonus();
+        this.defenseBonus = item.getDefenseBonus();
+        this.speedBonus = item.getSpeedBonus();
+        this.healthBonus = item.getHealthBonus();
+        this.manaBonus = item.getManaBonus();
+    }
+
 	public String getName() {
 		return name;
 	}
-	
 	public String getDescription() {
 		return description;
 	}
-	
 	public TextureRegion getIcon() {
 		return icon;
 	}
-
     public int getAttackBonus() {
         return attackBonus;
     }

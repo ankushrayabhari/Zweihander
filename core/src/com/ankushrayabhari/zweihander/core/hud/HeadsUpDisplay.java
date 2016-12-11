@@ -45,4 +45,6 @@ public class HeadsUpDisplay extends Stage {
         super.dispose();
         minimap.dispose();
     }
+
+    public InventoryDisplay getInventoryDisplay() { return inventoryDisplay; }
 }

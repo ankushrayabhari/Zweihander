@@ -7,7 +7,7 @@ import com.ankushrayabhari.zweihander.items.Inventory;
 import com.ankushrayabhari.zweihander.items.abilities.tomes.SampleTome;
 import com.ankushrayabhari.zweihander.items.armor.SampleArmor;
 import com.ankushrayabhari.zweihander.items.rings.SampleRing;
-import com.ankushrayabhari.zweihander.items.weapons.SampleWeapon;
+import com.ankushrayabhari.zweihander.items.weapons.WeaponFactory;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -30,7 +30,7 @@ public class Player extends PhysicalEntity {
 	public Player(GameScreen game) {
 		super(game, 20, 100, 100, false, Constants.FILTER_DATA.PLAYER, new Vector2(100, 100), new Vector2(2, 2), 0, true);
 
-        inventory = new Inventory(new SampleWeapon(game), new SampleArmor(), new SampleTome(game), new SampleRing());
+        inventory = new Inventory(game, WeaponFactory.createWeapon(game, 4), new SampleArmor(), new SampleTome(game), new SampleRing());
 
         level = 100;
         mana = 100;
@@ -43,10 +43,6 @@ public class Player extends PhysicalEntity {
         walkAnimation = new WalkAnimation(false, 19, 2/getSpeed());
         lastDirection = Constants.DIRECTION.DOWN;
         healthbar = Assets.getTex("textures/lofi_halls.png");
-
-        for(int i = 0; i < 8; i++) {
-            inventory.addItem(new SampleWeapon(game));
-        }
 	}
 
 	@Override

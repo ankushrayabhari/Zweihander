@@ -1,22 +1,24 @@
 package com.ankushrayabhari.zweihander.items.weapons;
 
 import com.ankushrayabhari.zweihander.items.Item;
+import com.ankushrayabhari.zweihander.items.weapons.actions.FireAction;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-public abstract class Weapon extends Item {
+public class Weapon extends Item {
 	protected float fireDelay, fireTimeCounter;
 	private GameScreen game;
+    private FireAction action;
 
-	public Weapon(GameScreen game, float delay, String name, String description, TextureRegion icon, int attackBonus, int defenseBonus, int speedBonus, int healthBonus, int manaBonus) {
-        super(name, description, icon, attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus);
-		fireDelay = delay;
+	public Weapon(GameScreen game, WeaponDef def) {
+        super(def.getName(), def.getDescription(), def.getIcon(), def.getAttackBonus(), def.getDefenseBonus(), def.getSpeedBonus(), def.getHealthBonus(), def.getManaBonus());
+		fireDelay = def.getDelay();
         fireTimeCounter = 0;
         this.game = game;
+        this.action = def.getAction();
 	}
-	
+
 	public void update(Float delta) {
 		fireTimeCounter += delta;
 	}
@@ -30,11 +32,9 @@ public abstract class Weapon extends Item {
             fireDirection.x = game.getInputController().getMouseCoordinates().x - localPlayerPos.x;
             fireDirection.y = game.getInputController().getMouseCoordinates().y - localPlayerPos.y;
             fireDirection.nor();
-            createProjectile(fireDirection);
+            action.execute(game, fireDirection);
         }
 	}
-
-    protected abstract void createProjectile(Vector2 fireDirection);
 
     protected GameScreen getGame() {
         return game;

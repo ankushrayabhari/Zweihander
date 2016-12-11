@@ -1,11 +1,11 @@
 package com.ankushrayabhari.zweihander.map;
 
-import java.util.Random;
-
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.map.as3delaunay.Point;
 import com.ankushrayabhari.zweihander.map.generation.PerlinNoiseGenerator;
 import com.ankushrayabhari.zweihander.map.generation.VoronoiGraph;
+
+import java.util.Random;
 
 public class OverWorldGraph extends VoronoiGraph {
 	private PerlinNoiseGenerator generator;
@@ -26,7 +26,7 @@ public class OverWorldGraph extends VoronoiGraph {
     }
 	
 	public static OverWorldGraph createGraph(Random random) {
-		OverWorldGraph graph = new OverWorldGraph(Constants.BOUNDS, Constants.SITES, Constants.LLOYD_RELAXATION, random);
+		OverWorldGraph graph = new OverWorldGraph(Constants.BOUNDS+1, Constants.SITES, Constants.LLOYD_RELAXATION, random);
 		graph.generateGraph();
 		return graph;
 	}

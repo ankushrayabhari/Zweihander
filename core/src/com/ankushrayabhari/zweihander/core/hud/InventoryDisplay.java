@@ -53,7 +53,7 @@ public class InventoryDisplay extends Table {
                 this.row();
             }
 
-            this.add(new InventoryItem(iterator.next())).width(9*WidthConversion).height(9*HeightConversion).expand().center();
+            this.add(new ItemDisplay(game, iterator.next())).width(9*WidthConversion).height(9*HeightConversion).expand().center();
             count++;
         }
     }

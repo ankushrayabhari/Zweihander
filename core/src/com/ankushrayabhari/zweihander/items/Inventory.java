@@ -54,31 +54,40 @@ public class Inventory {
         return activeWeapon;
     }
 
-    public void setActiveWeapon(Item weapon) {
+    public Item setActiveWeapon(Item weapon) {
+        int activeWeaponId = activeWeapon.getId();
+        activeWeapon = (Weapon) weapon;
+        return ItemFactory.createItem(game, activeWeaponId, ItemFactory.ItemTypes.Weapon);
     }
 
     public Ring getActiveRing() {
         return activeRing;
     }
 
-    public void setActiveRing(Ring ring) {
-        activeRing = ring;
+    public Item setActiveRing(Item ring) {
+        int activeRingId = activeRing.getId();
+        activeRing = (Ring) ring;
+        return ItemFactory.createItem(game, activeRingId, ItemFactory.ItemTypes.Ring);
     }
 
     public Armor getActiveArmor() {
         return activeArmor;
     }
 
-    public void setActiveArmor(Armor armor) {
-        activeArmor = armor;
+    public Item setActiveArmor(Item armor) {
+        int activeArmorId = activeArmor.getId();
+        activeArmor = (Armor) armor;
+        return ItemFactory.createItem(game, activeArmorId, ItemFactory.ItemTypes.Armor);
     }
 
     public Ability getActiveAbility() {
         return activeAbility;
     }
 
-    public void setActiveAbility(Ability ability) {
-        activeAbility = ability;
+    public Item setActiveAbility(Item ability) {
+        int activeAbilityId = activeAbility.getId();
+        activeAbility = (Ability) ability;
+        return ItemFactory.createItem(game, activeAbilityId, ItemFactory.ItemTypes.Ability);
     }
 
     public int getHealthBonus() {

@@ -6,13 +6,13 @@ public class Item {
 	private String name;
 	private String description;
 	private TextureRegion icon;
-    private int attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus, wisdomBonus, vitalityBonus;
+    private int id, attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus, wisdomBonus, vitalityBonus;
 
 	public Item(ItemDef itemDef) {
         this.name = itemDef.getName();
 		this.description = itemDef.getDescription();
 		this.icon = itemDef.getIcon();
-
+        this.id = itemDef.getId();
         this.attackBonus = itemDef.getAttackBonus();
         this.defenseBonus = itemDef.getDefenseBonus();
         this.speedBonus = itemDef.getSpeedBonus();
@@ -21,6 +21,20 @@ public class Item {
         this.vitalityBonus = itemDef.getVitalityBonus();
         this.wisdomBonus = itemDef.getWisdomBonus();
 	}
+
+    public void setFields(Item item) {
+        this.name = item.getName();
+        this.description = item.getDescription();
+        this.icon = item.getIcon();
+        this.id = item.getId();
+        this.attackBonus = item.getAttackBonus();
+        this.defenseBonus = item.getDefenseBonus();
+        this.speedBonus = item.getSpeedBonus();
+        this.healthBonus = item.getHealthBonus();
+        this.manaBonus = item.getManaBonus();
+        this.vitalityBonus = item.getVitalityBonus();
+        this.wisdomBonus = item.getWisdomBonus();
+    }
 
 
 	public String getName() {
@@ -49,4 +63,5 @@ public class Item {
     }
     public int getWisdomBonus() { return wisdomBonus; }
     public int getVitalityBonus() { return vitalityBonus; }
+    public int getId() { return id; }
 }

@@ -1,6 +1,9 @@
 package com.ankushrayabhari.zweihander.core.hud;
 
 import com.ankushrayabhari.zweihander.items.Item;
+import com.ankushrayabhari.zweihander.items.abilities.Ability;
+import com.ankushrayabhari.zweihander.items.misc.Armor;
+import com.ankushrayabhari.zweihander.items.misc.Ring;
 import com.ankushrayabhari.zweihander.items.weapons.Weapon;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -23,11 +26,19 @@ public class ItemDisplay extends Actor {
 
         this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                if(this.getTapCount() >= 2) {
-                    Item clickedItem = ((ItemDisplay) event.getTarget()).getItem();
-                    if(clickedItem instanceof Weapon) {
-                        game.getPlayer().getInventory().setActiveWeapon(clickedItem);
+                if (this.getTapCount() >= 2) {
+                    Item oldActive = null;
+                    Item currentItem = getItem();
+                    if (currentItem instanceof Weapon) {
+                        oldActive = game.getPlayer().getInventory().setActiveWeapon(currentItem);
+                    } else if (currentItem instanceof Ability) {
+                        oldActive = game.getPlayer().getInventory().setActiveAbility(currentItem);
+                    } else if (currentItem instanceof Armor) {
+                        oldActive = game.getPlayer().getInventory().setActiveArmor(currentItem);
+                    } else if (currentItem instanceof Ring) {
+                        oldActive = game.getPlayer().getInventory().setActiveRing(currentItem);
                     }
+                    setItem(oldActive);
                 }
             }
         });
@@ -39,6 +50,10 @@ public class ItemDisplay extends Actor {
         HeightConversion = this.getHeight()/10;
 
         batch.draw(item.getIcon(), this.getX() + 1 * WidthConversion, this.getY() + 1 * HeightConversion, 8 * WidthConversion, 8 * HeightConversion);
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public Item getItem() {

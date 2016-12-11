@@ -51,6 +51,12 @@ public class Player extends PhysicalEntity {
 		movementDirection = new Vector2(0,0);
         walkAnimation = new WalkAnimation(false, 19, 2/getSpeed());
         lastDirection = Constants.DIRECTION.DOWN;
+
+        inventory.addItem(ItemFactory.createItem(game, 1, ItemFactory.ItemTypes.Weapon));
+        inventory.addItem(ItemFactory.createItem(game, 3, ItemFactory.ItemTypes.Weapon));
+        inventory.addItem(ItemFactory.createItem(game, 91, ItemFactory.ItemTypes.Ring));
+        inventory.addItem(ItemFactory.createItem(game, 61, ItemFactory.ItemTypes.Armor));
+        inventory.addItem(ItemFactory.createItem(game, 31, ItemFactory.ItemTypes.Ability));
 	}
 
 	@Override

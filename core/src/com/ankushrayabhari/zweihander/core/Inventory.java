@@ -53,9 +53,19 @@ public class Inventory {
     }
 
     public Item setActiveWeapon(Item weapon) {
+        int weaponIndex = -1;
+        for(int i = 0; i < items.size(); i++) {
+            if(items.get(i) == weapon) {
+                weaponIndex = i;
+            }
+        }
         int activeWeaponId = activeWeapon.getId();
-        activeWeapon = (Weapon) weapon;
-        return ItemFactory.createItem(game, activeWeaponId, ItemFactory.ItemTypes.Weapon);
+        int weaponId = weapon.getId();
+        activeWeapon = (Weapon) ItemFactory.createItem(game, weaponId, ItemFactory.ItemTypes.Weapon);
+
+        weapon = ItemFactory.createItem(game, activeWeaponId, ItemFactory.ItemTypes.Weapon);
+        if(weaponIndex != -1) items.set(weaponIndex, weapon);
+        return weapon;
     }
 
     public Ring getActiveRing() {
@@ -63,9 +73,19 @@ public class Inventory {
     }
 
     public Item setActiveRing(Item ring) {
+        int ringIndex = -1;
+        for(int i = 0; i < items.size(); i++) {
+            if(items.get(i) == ring) {
+                ringIndex = i;
+            }
+        }
         int activeRingId = activeRing.getId();
-        activeRing = (Ring) ring;
-        return ItemFactory.createItem(game, activeRingId, ItemFactory.ItemTypes.Ring);
+        int ringId = ring.getId();
+        activeRing = (Ring) ItemFactory.createItem(game, ringId, ItemFactory.ItemTypes.Ring);
+
+        ring = ItemFactory.createItem(game, activeRingId, ItemFactory.ItemTypes.Ring);
+        if(ringIndex != -1) items.set(ringIndex, ring);
+        return ring;
     }
 
     public Armor getActiveArmor() {
@@ -73,9 +93,19 @@ public class Inventory {
     }
 
     public Item setActiveArmor(Item armor) {
+        int armorIndex = -1;
+        for(int i = 0; i < items.size(); i++) {
+            if(items.get(i) == armor) {
+                armorIndex = i;
+            }
+        }
         int activeArmorId = activeArmor.getId();
-        activeArmor = (Armor) armor;
-        return ItemFactory.createItem(game, activeArmorId, ItemFactory.ItemTypes.Armor);
+        int armorId = armor.getId();
+        activeArmor = (Armor) ItemFactory.createItem(game, armorId, ItemFactory.ItemTypes.Armor);
+
+        armor = ItemFactory.createItem(game, activeArmorId, ItemFactory.ItemTypes.Armor);
+        if(armorIndex != -1) items.set(armorIndex, armor);
+        return armor;
     }
 
     public Ability getActiveAbility() {
@@ -83,9 +113,19 @@ public class Inventory {
     }
 
     public Item setActiveAbility(Item ability) {
+        int abilityIndex = -1;
+        for(int i = 0; i < items.size(); i++) {
+            if(items.get(i) == ability) {
+                abilityIndex = i;
+            }
+        }
         int activeAbilityId = activeAbility.getId();
-        activeAbility = (Ability) ability;
-        return ItemFactory.createItem(game, activeAbilityId, ItemFactory.ItemTypes.Ability);
+        int abilityId = ability.getId();
+        activeAbility = (Ability) ItemFactory.createItem(game, abilityId, ItemFactory.ItemTypes.Ability);
+
+        ability = ItemFactory.createItem(game, activeAbilityId, ItemFactory.ItemTypes.Ability);
+        if(abilityIndex != -1) items.set(abilityIndex, ability);
+        return ability;
     }
 
     public int getHealthBonus() {

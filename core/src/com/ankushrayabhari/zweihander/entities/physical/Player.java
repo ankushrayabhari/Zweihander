@@ -37,6 +37,7 @@ public class Player extends PhysicalEntity {
                 (Ring) ItemFactory.createItem(game, 90, ItemFactory.ItemTypes.Ring)
         );
 
+
         level = 1;
 
         baseMaxMana = 100;
@@ -94,13 +95,13 @@ public class Player extends PhysicalEntity {
         }
         this.getBody().setLinearVelocity(movementDirection);
         
-        
         //Firing
         if (this.getGame().getInputController().isFire1()) {
         	inventory.getActiveWeapon().fire();
         }
         inventory.getActiveWeapon().update(delta);
 
+        //Ability
         if(this.getGame().getInputController().isFire2()) {
             inventory.getActiveAbility().fire();
         }
@@ -154,9 +155,11 @@ public class Player extends PhysicalEntity {
     public int getLevel() {
         return level;
     }
-    public float getManaPercentage() {
-        return mana/(float) getMaxMana();
+
+    public float getXpPercentage() {
+        return (float) xp / (float) getMaxXp();
     }
+    public int getMaxXp() { return maxXp; }
 
     @Override
     public int getMaxHealth() {
@@ -173,12 +176,6 @@ public class Player extends PhysicalEntity {
         if(mana > getMaxMana()) mana = getMaxMana();
     }
     public float getMana() { return mana; }
-    public float getXpPercentage() {
-        return (float) xp / (float) getMaxXp();
-    }
-    public int getMaxXp() { return maxXp; }
-
-
     public int getAttack() {
         return baseAttack+inventory.getAttackBonus();
     }
@@ -200,8 +197,6 @@ public class Player extends PhysicalEntity {
     public int getDexterity() {
         return baseDexterity+inventory.getDexterityBonus();
     }
-
-
     public void increaseBaseAttack(int amount) {
         this.baseAttack += amount;
     }
@@ -225,5 +220,16 @@ public class Player extends PhysicalEntity {
     }
     public void increaseBaseMana(int amount) {
         this.baseMaxMana += amount;
+    }
+    public float getManaPercentage() {
+        return mana/(float) getMaxMana();
+    }
+
+    @Override
+    public void dealDamage(float amount) {
+        this.health -= amount*(0.85*getDefense()/100);
+        if(this.health <= 0) {
+            this.setDead(true);
+        }
     }
 }

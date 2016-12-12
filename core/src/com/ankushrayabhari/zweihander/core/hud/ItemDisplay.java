@@ -29,22 +29,21 @@ public class ItemDisplay extends Actor {
         this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 if (this.getTapCount() >= 2) {
-                    Item oldActive = item;
                     Item currentItem = getItem();
                     if (currentItem instanceof Weapon) {
-                        oldActive = game.getPlayer().getInventory().setActiveWeapon(currentItem);
+                        game.getPlayer().getInventory().setActiveWeapon(currentItem);
                     } else if (currentItem instanceof Ability) {
-                        oldActive = game.getPlayer().getInventory().setActiveAbility(currentItem);
+                        game.getPlayer().getInventory().setActiveAbility(currentItem);
                     } else if (currentItem instanceof Armor) {
-                        oldActive = game.getPlayer().getInventory().setActiveArmor(currentItem);
+                        game.getPlayer().getInventory().setActiveArmor(currentItem);
                     } else if (currentItem instanceof Ring) {
-                        oldActive = game.getPlayer().getInventory().setActiveRing(currentItem);
+                        game.getPlayer().getInventory().setActiveRing(currentItem);
                     } else if (currentItem instanceof Consumable) {
                         ((Potion) currentItem).consume(game);
                         game.getPlayer().getInventory().removeItem(currentItem);
-                        game.getHud().getInventoryDisplay().refreshItemDisplay();
                     }
-                    setItem(oldActive);
+
+                    game.getHud().getInventoryDisplay().refreshItemDisplay();
                 }
             }
         });

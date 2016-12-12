@@ -97,13 +97,7 @@ public abstract class PhysicalEntity extends Entity {
     
     public abstract void onCollide(PhysicalEntity entity);
 
-    public void dealDamage(float amount) {
-    	this.health -= amount;
-    	if(this.health <= 0) {
-    		this.setDead(true);
-    	}
-    	
-    }
+    public abstract void dealDamage(float amount);
     
     public void addHealth(float amount) {
     	this.health += amount;

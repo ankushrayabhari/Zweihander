@@ -84,13 +84,19 @@ public class Enemy extends PhysicalEntity {
 		sprite.draw(batch);
 		
 		batch.draw(healthbar, position.x-1, position.y-1-0.25f, 2, 0.25f, 53, 553, 21, 2, false, false);
-		batch.draw(healthbar, position.x-1, position.y-1-0.25f, this.getHealthPercentage()*2, 0.25f, 31, 553, 21, 2, false, false);
+		batch.draw(healthbar, position.x - 1, position.y - 1 - 0.25f, this.getHealthPercentage() * 2, 0.25f, 31, 553, 21, 2, false, false);
 	}
 
 	@Override
-	public void onCollide(PhysicalEntity entity) {
-		
-	}
+	public void onCollide(PhysicalEntity entity) {}
+
+    @Override
+    public void dealDamage(float amount) {
+        this.health -= amount;
+        if(this.health <= 0) {
+            this.setDead(true);
+        }
+    }
 
     @Override
     public int getMaxHealth()  { return baseMaxHealth; }

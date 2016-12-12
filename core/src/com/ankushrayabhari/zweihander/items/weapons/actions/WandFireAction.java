@@ -21,6 +21,6 @@ public class WandFireAction implements Action {
         fireDirection.y = game.getInputController().getMouseCoordinates().y - localPlayerPos.y;
         fireDirection.nor();
 
-        game.addEntity(new Projectile(game, Constants.FILTER_DATA.ALLY_PROJECTILE, new Vector2(game.getPlayer().getPosition()), fireDirection));
+        game.addEntity(new Projectile(game, Constants.FILTER_DATA.ALLY_PROJECTILE, new Vector2(game.getPlayer().getPosition()), fireDirection, 15, 225, 10*(1+game.getPlayer().getAttack()/100)));
     }
 }

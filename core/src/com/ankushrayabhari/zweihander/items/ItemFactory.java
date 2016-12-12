@@ -5,6 +5,8 @@ import com.ankushrayabhari.zweihander.items.abilities.Ability;
 import com.ankushrayabhari.zweihander.items.abilities.AbilityDef;
 import com.ankushrayabhari.zweihander.items.abilities.actions.TomeAction;
 import com.ankushrayabhari.zweihander.items.misc.Armor;
+import com.ankushrayabhari.zweihander.items.misc.Potion;
+import com.ankushrayabhari.zweihander.items.misc.PotionDef;
 import com.ankushrayabhari.zweihander.items.misc.Ring;
 import com.ankushrayabhari.zweihander.items.weapons.Weapon;
 import com.ankushrayabhari.zweihander.items.weapons.WeaponDef;
@@ -34,6 +36,7 @@ public class ItemFactory {
 
         populateWeapons(json);
         populateAbilities(json);
+        populatePotions(json);
         populateItem(json, "items/armors.json", "armors");
         populateItem(json, "items/rings.json", "rings");
 
@@ -47,7 +50,7 @@ public class ItemFactory {
     }
 
     public static enum ItemTypes {
-        Weapon, Ability, Armor, Ring
+        Weapon, Ability, Armor, Ring, Potion
     }
 
     public static Item createItem(GameScreen game, int id, ItemTypes itemType) {
@@ -58,6 +61,8 @@ public class ItemFactory {
 
         if(index >= 0) {
             switch(itemType) {
+                case Potion:
+                    return new Potion((PotionDef) itemDefs.get(index));
                 case Weapon:
                     return new Weapon(game, (WeaponDef) itemDefs.get(index));
                 case Ability:
@@ -106,6 +111,17 @@ public class ItemFactory {
                 definition.setAction(new TomeAction(component.getInt("hpHeal")));
             }
 
+            itemDefs.add(definition);
+        }
+    }
+    private static void populatePotions(JsonReader json) {
+        JsonValue base = json.parse(Gdx.files.internal("items/potions.json"));
+        for (JsonValue component : base.get("potions"))
+        {
+            PotionDef definition = new PotionDef();
+            ItemFactory.setFields(definition, component);
+            definition.setHealAmount(component.getInt("healAmount"));
+            definition.setManaHealAmount(component.getInt("manaHealAmount"));
             itemDefs.add(definition);
         }
     }

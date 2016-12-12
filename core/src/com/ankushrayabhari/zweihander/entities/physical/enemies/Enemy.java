@@ -93,5 +93,5 @@ public class Enemy extends PhysicalEntity {
 	}
 
     @Override
-    public int getMaxHealth()  { return maxHealth; }
+    public int getMaxHealth()  { return baseMaxHealth; }
 }

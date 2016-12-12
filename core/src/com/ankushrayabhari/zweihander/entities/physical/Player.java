@@ -62,6 +62,7 @@ public class Player extends PhysicalEntity {
         inventory.addItem(ItemFactory.createItem(game, 91, ItemFactory.ItemTypes.Ring));
         inventory.addItem(ItemFactory.createItem(game, 61, ItemFactory.ItemTypes.Armor));
         inventory.addItem(ItemFactory.createItem(game, 31, ItemFactory.ItemTypes.Ability));
+        inventory.addItem(ItemFactory.createItem(game, 121, ItemFactory.ItemTypes.Potion));
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public class Player extends PhysicalEntity {
     	
         Vector2 position = this.getPosition();
         float height = water ? 1.5f : 2;
-        sprite.setBounds(position.x-1, position.y-1, 2, height);
+        sprite.setBounds(position.x - 1, position.y - 1, 2, height);
         sprite.draw(batch);
 	}
 
@@ -156,6 +157,28 @@ public class Player extends PhysicalEntity {
     public float getManaPercentage() {
         return mana/(float) getMaxMana();
     }
+
+    @Override
+    public int getMaxHealth() {
+        return this.baseMaxHealth +inventory.getHealthBonus();
+    }
+    public void dealMana(float amount) {
+        mana -= amount;
+        if(mana < 0) {
+            mana = 0;
+        }
+    }
+    public void addMana(float amount) {
+        mana += amount;
+        if(mana > getMaxMana()) mana = getMaxMana();
+    }
+    public float getMana() { return mana; }
+    public float getXpPercentage() {
+        return (float) xp / (float) getMaxXp();
+    }
+    public int getMaxXp() { return maxXp; }
+
+
     public int getAttack() {
         return baseAttack+inventory.getAttackBonus();
     }
@@ -177,23 +200,30 @@ public class Player extends PhysicalEntity {
     public int getDexterity() {
         return baseDexterity+inventory.getDexterityBonus();
     }
-    @Override
-    public int getMaxHealth() {
-        return this.maxHealth+inventory.getHealthBonus();
+
+
+    public void increaseBaseAttack(int amount) {
+        this.baseAttack += amount;
     }
-    public void dealMana(float amount) {
-        mana -= amount;
-        if(mana < 0) {
-            mana = 0;
-        }
+    public void increaseBaseDefense(int amount) {
+        this.baseDefense += amount;
     }
-    public void addMana(float amount) {
-        mana += amount;
-        if(mana > getMaxMana()) mana = getMaxMana();
+    public void increaseBaseSpeed(int amount) {
+        this.baseSpeed += amount;
     }
-    public float getMana() { return mana; }
-    public float getXpPercentage() {
-        return (float) xp / (float) getMaxXp();
+    public void increaseBaseDexterity(int amount) {
+        this.baseDexterity += amount;
     }
-    public int getMaxXp() { return maxXp; }
+    public void increaseBaseVitality(int amount) {
+        this.baseVitality += amount;
+    }
+    public void increaseBaseWisdom(int amount) {
+        this.baseWisdom += amount;
+    }
+    public void increaseBaseHealth(int amount) {
+        this.baseMaxHealth += amount;
+    }
+    public void increaseBaseMana(int amount) {
+        this.baseMaxMana += amount;
+    }
 }

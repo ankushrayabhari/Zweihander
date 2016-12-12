@@ -3,6 +3,7 @@ package com.ankushrayabhari.zweihander.core.hud;
 import com.ankushrayabhari.zweihander.items.Item;
 import com.ankushrayabhari.zweihander.items.abilities.Ability;
 import com.ankushrayabhari.zweihander.items.misc.Armor;
+import com.ankushrayabhari.zweihander.items.misc.Potion;
 import com.ankushrayabhari.zweihander.items.misc.Ring;
 import com.ankushrayabhari.zweihander.items.weapons.Weapon;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
@@ -21,13 +22,13 @@ public class ItemDisplay extends Actor {
     private Item item;
     private GameScreen game;
 
-    public ItemDisplay(final GameScreen game, Item item) {
-        this.item = item;
+    public ItemDisplay(final GameScreen game, Item initialItem) {
+        this.item = initialItem;
 
         this.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 if (this.getTapCount() >= 2) {
-                    Item oldActive = null;
+                    Item oldActive = item;
                     Item currentItem = getItem();
                     if (currentItem instanceof Weapon) {
                         oldActive = game.getPlayer().getInventory().setActiveWeapon(currentItem);
@@ -37,6 +38,10 @@ public class ItemDisplay extends Actor {
                         oldActive = game.getPlayer().getInventory().setActiveArmor(currentItem);
                     } else if (currentItem instanceof Ring) {
                         oldActive = game.getPlayer().getInventory().setActiveRing(currentItem);
+                    } else if (currentItem instanceof Potion) {
+                        ((Potion) currentItem).consume(game);
+                        game.getPlayer().getInventory().removeItem(currentItem);
+                        game.getHud().getInventoryDisplay().refreshItemDisplay();
                     }
                     setItem(oldActive);
                 }

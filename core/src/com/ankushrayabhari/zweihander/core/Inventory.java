@@ -44,10 +44,8 @@ public class Inventory {
         }
     }
 
-
-
-    public void removeItem(int index) {
-        items.remove(index);
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 
     public Weapon getActiveWeapon() {

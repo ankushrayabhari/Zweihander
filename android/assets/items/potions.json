@@ -1,0 +1,136 @@
+{
+    "potions": [
+        {
+            "id": 120,
+            "name": "Defense Potion",
+            "description": "A potion of defense",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 72,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 0,
+            "manaBonus": 0,
+            "attackBonus": 0,
+            "defenseBonus": 1,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0,
+            "healAmount": 0,
+            "manaHealAmount": 0
+        },
+        {
+            "id": 121,
+            "name": "Attack Potion",
+            "description": "A potion of attack",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 80,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 0,
+            "manaBonus": 0,
+            "attackBonus": 1,
+            "defenseBonus": 0,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0,
+            "healAmount": 0,
+            "manaHealAmount": 0
+        },
+        {
+            "id": 122,
+            "name": "Speed Potion",
+            "description": "A potion of speed",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 88,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 0,
+            "manaBonus": 0,
+            "attackBonus": 0,
+            "defenseBonus": 0,
+            "speedBonus": 1,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0,
+            "healAmount": 0,
+            "manaHealAmount": 0
+        },
+        {
+            "id": 123,
+            "name": "Health Restoration Potion",
+            "description": "A potion of health restoration",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 96,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 0,
+            "manaBonus": 0,
+            "attackBonus": 0,
+            "defenseBonus": 0,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0,
+            "healAmount": 100,
+            "manaHealAmount": 0
+        },
+        {
+            "id": 124,
+            "name": "Mana Restoration Potion",
+            "description": "A potion of mana restoration",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 104,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 0,
+            "manaBonus": 0,
+            "attackBonus": 0,
+            "defenseBonus": 0,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0,
+            "healAmount": 0,
+            "manaHealAmount": 100
+        },
+        {
+            "id": 125,
+            "name": "Mana Potion",
+            "description": "A potion of mana",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 112,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 0,
+            "manaBonus": 5,
+            "attackBonus": 0,
+            "defenseBonus": 0,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0,
+            "healAmount": 0,
+            "manaHealAmount": 0
+        }
+    ]
+}

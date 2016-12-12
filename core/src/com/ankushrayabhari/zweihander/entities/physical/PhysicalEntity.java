@@ -19,14 +19,14 @@ public abstract class PhysicalEntity extends Entity {
 	private GameScreen game;
     private Body body;
     protected float health;
-    protected int maxHealth;
+    protected int baseMaxHealth;
     private Vector2 dimensions;
     
     protected PhysicalEntity(GameScreen game, int zIndex, int health, int maxHealth, boolean staticBody, Constants.FILTER_DATA filterData, Vector2 position, Vector2 dimensions, float angle, boolean massive) {
     	super(zIndex);
     	this.game = game;
         this.health = health;
-        this.maxHealth = maxHealth;
+        this.baseMaxHealth = maxHealth;
     	this.dimensions = dimensions;
     	
         BodyDef bodyDef = new BodyDef();

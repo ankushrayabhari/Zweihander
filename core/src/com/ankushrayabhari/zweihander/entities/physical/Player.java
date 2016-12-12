@@ -99,6 +99,11 @@ public class Player extends PhysicalEntity {
         	inventory.getActiveWeapon().fire();
         }
         inventory.getActiveWeapon().update(delta);
+
+        if(this.getGame().getInputController().isFire2()) {
+            inventory.getActiveAbility().fire();
+        }
+        inventory.getActiveAbility().update(delta);
 	}
 
 	@Override
@@ -186,7 +191,7 @@ public class Player extends PhysicalEntity {
         mana += amount;
         if(mana > getMaxMana()) mana = getMaxMana();
     }
-
+    public float getMana() { return mana; }
     public float getXpPercentage() {
         return (float) xp / (float) getMaxXp();
     }

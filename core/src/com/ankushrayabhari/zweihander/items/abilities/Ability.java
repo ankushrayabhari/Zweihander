@@ -21,6 +21,7 @@ public class Ability extends Item {
         fireTimeCounter = 0;
         this.game = game;
         this.manaCost = def.getManaCost();
+        this.action = def.getAction();
     }
 
     public void update(Float delta) {
@@ -28,7 +29,7 @@ public class Ability extends Item {
     }
 
     public void fire() {
-        if((fireTimeCounter > fireDelay)) {
+        if((fireTimeCounter > fireDelay && game.getPlayer().getMana() > manaCost)) {
             fireTimeCounter = 0;
             action.execute(game);
             game.getPlayer().dealMana(manaCost);

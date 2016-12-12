@@ -63,14 +63,14 @@ public class PlayerDisplay extends Actor {
         //health bar
         batch.draw(texture, this.getX() + 15 * WidthConversion, this.getY() + this.getHeight() - 10f * HeightConversion, 37 * WidthConversion, 4 * HeightConversion, 53, 553, 21, 2, false, false);
         batch.draw(texture, this.getX() + 15 * WidthConversion, this.getY() + this.getHeight() - 10f * HeightConversion, 37 * game.getPlayer().getHealthPercentage() * WidthConversion, 4 * HeightConversion, 31, 553, 21, 2, false, false);
-        String hpText = Integer.toString((int) Math.floor(game.getPlayer().getHealthPercentage()*game.getPlayer().getMaxHealth())) + "/" + Integer.toString(game.getPlayer().getMaxHealth());
+        String hpText = Integer.toString((int) Math.floor(game.getPlayer().getHealth())) + "/" + Integer.toString(game.getPlayer().getMaxHealth());
         font.draw(batch, hpText, this.getX() + 30f * WidthConversion, this.getY() + this.getHeight() - 6.5f * HeightConversion, 0, hpText.length(), 7*WidthConversion, Align.center, false, null);
 
         //mana bar
         batch.draw(texture, this.getX() + 15 * WidthConversion, this.getY() + this.getHeight() - 15 * HeightConversion, 37 * WidthConversion, 4 * HeightConversion, 53, 557, 21, 2, false, false);
         batch.draw(texture, this.getX() + 15 * WidthConversion, this.getY() + this.getHeight() - 15 * HeightConversion, 37 * game.getPlayer().getManaPercentage() * WidthConversion, 4 * HeightConversion, 31, 557, 21, 2, false, false);
-        String manaText = Integer.toString((int) Math.floor(game.getPlayer().getManaPercentage()*game.getPlayer().getMaxMana())) + "/" + Integer.toString(game.getPlayer().getMaxMana());
-        font.draw(batch, hpText, this.getX() + 30f * WidthConversion, this.getY() + this.getHeight() - 11.5f * HeightConversion, 0, manaText.length(), 7*WidthConversion, Align.center, false, null);
+        String manaText = Integer.toString((int) Math.floor(game.getPlayer().getMana())) + "/" + Integer.toString(game.getPlayer().getMaxMana());
+        font.draw(batch, manaText, this.getX() + 30f * WidthConversion, this.getY() + this.getHeight() - 11.5f * HeightConversion, 0, manaText.length(), 7*WidthConversion, Align.center, false, null);
 
         //stats
         String atk = Integer.toString(game.getPlayer().getAttack());

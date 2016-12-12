@@ -121,4 +121,5 @@ public abstract class PhysicalEntity extends Entity {
     public float getHealthPercentage() {
         return health/(float) getMaxHealth();
     }
+    public float getHealth() { return health; }
 }

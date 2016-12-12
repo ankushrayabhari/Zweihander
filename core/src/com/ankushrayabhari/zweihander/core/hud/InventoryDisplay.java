@@ -29,32 +29,46 @@ public class InventoryDisplay extends Table {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         WidthConversion = this.getWidth()/55;
-        HeightConversion = this.getHeight()/31;
+        HeightConversion = this.getHeight()/31/1.5f;
+
         //Background
         batch.draw(texture, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 9, 601, 55, 31, false, false);
+
+        //item slots
         for(int i = 0; i < 4; i++) {
             batch.draw(texture, this.getX()+(this.getWidth()/4*i)+2*WidthConversion, this.getY()+this.getHeight()-12.5f*HeightConversion, 10*WidthConversion, 10*HeightConversion, 64, 530, 10, 10, false, false);
         }
         for(int i = 0; i < 4; i++) {
             batch.draw(texture, this.getX()+(this.getWidth()/4*i)+2*WidthConversion, this.getY()+this.getHeight()-28*HeightConversion, 10*WidthConversion, 10*HeightConversion, 64, 530, 10, 10, false, false);
         }
+        for(int i = 0; i < 4; i++) {
+            batch.draw(texture, this.getX()+(this.getWidth()/4*i)+2*WidthConversion, this.getY()+this.getHeight()-43.5f*HeightConversion, 10*WidthConversion, 10*HeightConversion, 64, 530, 10, 10, false, false);
+        }
 
+        //items
         super.draw(batch, parentAlpha);
     }
 
     public void refreshItemDisplay() {
         WidthConversion = this.getWidth()/55;
-        HeightConversion = this.getHeight()/31;
+        HeightConversion = this.getHeight()/31/1.5f;
         this.clearChildren();
         ListIterator<Item> iterator = this.game.getPlayer().getInventory().iterator();
         int count = 0;
         while(iterator.hasNext()) {
-            if(count == 4) {
+            if(count%4==0) {
                 this.row();
             }
 
             this.add(new ItemDisplay(game, iterator.next())).width(9*WidthConversion).height(9*HeightConversion).expand().center();
             count++;
+        }
+        while(count < 12) {
+            if(count%4==0) {
+                this.row();
+            }
+            count++;
+            this.add().width(10*WidthConversion).height(10*HeightConversion).expand().center();
         }
     }
 }

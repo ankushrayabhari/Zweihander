@@ -128,6 +128,7 @@ public class ItemFactory {
         itemDef.setSpeedBonus(component.getInt("speedBonus"));
         itemDef.setWisdomBonus(component.getInt("wisdomBonus"));
         itemDef.setVitalityBonus(component.getInt("vitalityBonus"));
+        itemDef.setDexterityBonus(component.getInt("dexterityBonus"));
 
         JsonValue texture = component.get("texture");
         itemDef.setIcon(new TextureRegion(Assets.getTex(texture.getString("file")), texture.getInt("x"), texture.getInt("y"), texture.getInt("width"), texture.getInt("height")));

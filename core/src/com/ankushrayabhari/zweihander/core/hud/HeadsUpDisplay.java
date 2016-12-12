@@ -23,10 +23,10 @@ public class HeadsUpDisplay extends Stage {
         this.addActor(minimap);
 
         playerDisplay = new PlayerDisplay(game);
-        playerDisplay.setBounds(Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250 - 250 / 55 * 31, 250, 250 / 55 * 31);
+        playerDisplay.setBounds(Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250 - 375 / 55 * 31, 250, 375 / 55 * 31);
         this.addActor(playerDisplay);
 
-        inventoryDisplay = new InventoryDisplay(game, Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250 - 450 / 55 * 31, 250, 250 / 55 * 31);
+        inventoryDisplay = new InventoryDisplay(game, Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250 - 700 / 55 * 31, 250, 375 / 55 * 31);
         this.addActor(inventoryDisplay);
 
         texture = Assets.getTex("textures/lofi_halls.png");

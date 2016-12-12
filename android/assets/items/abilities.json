@@ -1,0 +1,52 @@
+{
+    "abilities": [
+        {
+            "id": 30,
+            "name": "Tome 1",
+            "description": "A basic tome",
+            "action": "TomeAction",
+            "manaCost": 30,
+            "hpHeal": 30,
+            "delay": 0.3,
+            "texture": {
+                "file": "textures/lofi_obj_packA.png",
+                "x": 0,
+                "y": 16,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 5,
+            "manaBonus": 7,
+            "attackBonus": 0,
+            "defenseBonus": 0,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0
+        },
+        {
+            "id": 31,
+            "name": "Tome 1",
+            "description": "Another basic tome",
+            "action": "TomeAction",
+            "manaCost": 40,
+            "hpHeal": 50,
+            "delay": 0.3,
+            "texture": {
+                "file": "textures/lofi_obj_packA.png",
+                "x": 8,
+                "y": 16,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 5,
+            "manaBonus": 7,
+            "attackBonus": 0,
+            "defenseBonus": 2,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0
+        }
+    ]
+}

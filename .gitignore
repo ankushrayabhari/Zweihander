@@ -64,4 +64,5 @@ build/
 .DS_Store
 
 ## Project
-android/assets
+android/assets/music
+android/assets/textures

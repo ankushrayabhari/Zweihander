@@ -1,0 +1,44 @@
+{
+    "rings": [
+        {
+            "id": 90,
+            "name": "Ring 1",
+            "description": "A basic ring",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 89,
+                "y": 16,
+                "width": 7,
+                "height": 8
+            },
+            "hpBonus": 0,
+            "manaBonus": 0,
+            "attackBonus": 1,
+            "defenseBonus": 0,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0
+        },
+        {
+            "id": 91,
+            "name": "Ring 2",
+            "description": "Another basic ring",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 81,
+                "y": 16,
+                "width": 7,
+                "height": 8
+            },
+            "hpBonus": 0,
+            "manaBonus": 0,
+            "attackBonus": 0,
+            "defenseBonus": 1,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0
+        }
+    ]
+}

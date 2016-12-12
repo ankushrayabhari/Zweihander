@@ -1,5 +1,7 @@
-package com.ankushrayabhari.zweihander.items;
+package com.ankushrayabhari.zweihander.core;
 
+import com.ankushrayabhari.zweihander.items.Item;
+import com.ankushrayabhari.zweihander.items.ItemFactory;
 import com.ankushrayabhari.zweihander.items.abilities.Ability;
 import com.ankushrayabhari.zweihander.items.misc.Armor;
 import com.ankushrayabhari.zweihander.items.misc.Ring;
@@ -15,7 +17,7 @@ import java.util.ListIterator;
  * @author Ankush Rayabhari
  */
 public class Inventory {
-    private final int InventorySize = 8;
+    private final int InventorySize = 12;
     private ArrayList<Item> items;
     private Weapon activeWeapon;
     private Ring activeRing;
@@ -42,9 +44,7 @@ public class Inventory {
         }
     }
 
-    public ListIterator<Item> iterator() {
-        return items.listIterator();
-    }
+
 
     public void removeItem(int index) {
         items.remove(index);
@@ -110,5 +110,11 @@ public class Inventory {
     }
     public int getVitalityBonus() {
         return activeWeapon.getVitalityBonus()+activeRing.getVitalityBonus()+activeArmor.getVitalityBonus()+activeAbility.getVitalityBonus();
+    }
+    public int getDexterityBonus() {
+        return activeWeapon.getDexterityBonus()+activeRing.getDexterityBonus()+activeArmor.getDexterityBonus()+activeAbility.getDexterityBonus();
+    }
+    public ListIterator<Item> iterator() {
+        return items.listIterator();
     }
 }

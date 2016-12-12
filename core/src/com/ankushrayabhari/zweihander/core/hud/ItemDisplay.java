@@ -49,7 +49,7 @@ public class ItemDisplay extends Actor {
         WidthConversion = this.getWidth()/10;
         HeightConversion = this.getHeight()/10;
 
-        batch.draw(item.getIcon(), this.getX() + 1 * WidthConversion, this.getY() + 1 * HeightConversion, 8 * WidthConversion, 8 * HeightConversion);
+        batch.draw(item.getIcon(), this.getX() + 1 * WidthConversion, this.getY() + 1 * HeightConversion, 8*WidthConversion, 8*HeightConversion);
     }
 
     public void setItem(Item item) {

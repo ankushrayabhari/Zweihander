@@ -1,0 +1,44 @@
+{
+    "armors": [
+        {
+            "id": 60,
+            "name": "Cloak 1",
+            "description": "A basic cloak",
+            "texture": {
+                "file": "textures/lofi_obj_packA.png",
+                "x": 0,
+                "y": 56,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 5,
+            "manaBonus": 7,
+            "attackBonus": 0,
+            "defenseBonus": 5,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0
+        },
+        {
+            "id": 61,
+            "name": "Cloak 2",
+            "description": "Another basic cloak",
+            "texture": {
+                "file": "textures/lofi_obj_packA.png",
+                "x": 8,
+                "y": 56,
+                "width": 8,
+                "height": 8
+            },
+            "hpBonus": 10,
+            "manaBonus": 7,
+            "attackBonus": 0,
+            "defenseBonus": 5,
+            "speedBonus": 0,
+            "wisdomBonus": 0,
+            "vitalityBonus": 0,
+            "dexterityBonus": 0
+        }
+    ]
+}

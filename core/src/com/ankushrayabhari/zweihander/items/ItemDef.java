@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class ItemDef {
     private String name, description;
     private TextureRegion icon;
-    private int id, attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus, vitalityBonus, wisdomBonus;
+    private int id, attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus, vitalityBonus, wisdomBonus, dexterityBonus;
 
     public ItemDef() {}
 
@@ -92,5 +92,11 @@ public class ItemDef {
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public int getDexterityBonus() {
+        return dexterityBonus;
+    }
+    public void setDexterityBonus(int dexterityBonus) {
+        this.dexterityBonus = dexterityBonus;
     }
 }

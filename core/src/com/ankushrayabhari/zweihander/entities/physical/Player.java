@@ -2,7 +2,7 @@ package com.ankushrayabhari.zweihander.entities.physical;
 
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.core.KeyboardController;
-import com.ankushrayabhari.zweihander.items.Inventory;
+import com.ankushrayabhari.zweihander.core.Inventory;
 import com.ankushrayabhari.zweihander.items.ItemFactory;
 import com.ankushrayabhari.zweihander.items.abilities.Ability;
 import com.ankushrayabhari.zweihander.items.misc.Armor;
@@ -23,7 +23,7 @@ public class Player extends PhysicalEntity {
     private WalkAnimation walkAnimation;
     private Constants.DIRECTION lastDirection;
     private Inventory inventory;
-    private int level, baseMaxMana, baseDefense, baseAttack, baseSpeed, baseWisdom, baseVitality;
+    private int level, xp, maxXp, baseMaxMana, baseDefense, baseAttack, baseSpeed, baseWisdom, baseVitality, baseDexterity;
     private float mana;
 
 	public Player(GameScreen game) {
@@ -37,7 +37,7 @@ public class Player extends PhysicalEntity {
                 (Ring) ItemFactory.createItem(game, 90, ItemFactory.ItemTypes.Ring)
         );
 
-        level = 100;
+        level = 1;
 
         baseMaxMana = 100;
         baseDefense = 10;
@@ -45,8 +45,13 @@ public class Player extends PhysicalEntity {
         baseSpeed = 14;
         baseWisdom = 10;
         baseVitality = 10;
+        baseDexterity = 10;
+
+        xp = 50;
+        maxXp = 100;
 
         mana = getMaxMana();
+        health = getMaxHealth();
 
 		movementDirection = new Vector2(0,0);
         walkAnimation = new WalkAnimation(false, 19, 2/getSpeed());
@@ -61,7 +66,7 @@ public class Player extends PhysicalEntity {
 
 	@Override
 	public void update(float delta) {
-        this.addHealth(1/600f*getVitality());
+        this.addHealth(1 / 600f * getVitality());
         this.addMana(1/600f*getWisdom());
 
         //Movement
@@ -129,7 +134,7 @@ public class Player extends PhysicalEntity {
         Vector2 position = this.getPosition();
         float height = water ? 1.5f : 2;
         sprite.setBounds(position.x-1, position.y-1, 2, height);
-		sprite.draw(batch);
+        sprite.draw(batch);
 	}
 
 	@Override
@@ -164,6 +169,9 @@ public class Player extends PhysicalEntity {
     public int getVitality() {
         return baseVitality+inventory.getVitalityBonus();
     }
+    public int getDexterity() {
+        return baseDexterity+inventory.getDexterityBonus();
+    }
     @Override
     public int getMaxHealth() {
         return this.maxHealth+inventory.getHealthBonus();
@@ -178,4 +186,9 @@ public class Player extends PhysicalEntity {
         mana += amount;
         if(mana > getMaxMana()) mana = getMaxMana();
     }
+
+    public float getXpPercentage() {
+        return (float) xp / (float) getMaxXp();
+    }
+    public int getMaxXp() { return maxXp; }
 }

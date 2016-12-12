@@ -20,9 +20,9 @@ public class Weapon extends Item {
 	public void update(Float delta) {
 		fireTimeCounter += delta;
 	}
-	
+
 	public void fire() {
-		if((fireTimeCounter > fireDelay)) {
+		if((fireTimeCounter > (fireDelay-1/1000f*(float) game.getPlayer().getDexterity()))) {
             fireTimeCounter = 0;
             action.execute(game);
         }

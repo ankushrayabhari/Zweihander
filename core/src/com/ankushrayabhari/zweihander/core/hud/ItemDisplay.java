@@ -1,5 +1,6 @@
 package com.ankushrayabhari.zweihander.core.hud;
 
+import com.ankushrayabhari.zweihander.items.Consumable;
 import com.ankushrayabhari.zweihander.items.Item;
 import com.ankushrayabhari.zweihander.items.abilities.Ability;
 import com.ankushrayabhari.zweihander.items.misc.Armor;
@@ -38,7 +39,7 @@ public class ItemDisplay extends Actor {
                         oldActive = game.getPlayer().getInventory().setActiveArmor(currentItem);
                     } else if (currentItem instanceof Ring) {
                         oldActive = game.getPlayer().getInventory().setActiveRing(currentItem);
-                    } else if (currentItem instanceof Potion) {
+                    } else if (currentItem instanceof Consumable) {
                         ((Potion) currentItem).consume(game);
                         game.getPlayer().getInventory().removeItem(currentItem);
                         game.getHud().getInventoryDisplay().refreshItemDisplay();
@@ -54,7 +55,7 @@ public class ItemDisplay extends Actor {
         WidthConversion = this.getWidth()/10;
         HeightConversion = this.getHeight()/10;
 
-        batch.draw(item.getIcon(), this.getX() + 1 * WidthConversion, this.getY() + 1 * HeightConversion, 8*WidthConversion, 8*HeightConversion);
+        batch.draw(item.getIcon(), this.getX() + 1 * WidthConversion, this.getY() + 1 * HeightConversion, 8 * WidthConversion, 8 * HeightConversion);
     }
 
     public void setItem(Item item) {

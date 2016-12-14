@@ -33,8 +33,8 @@ public class Enemy extends PhysicalEntity implements Damageable {
 		walkAnimation = new WalkAnimation(true, 19, 2/SPEED);
 		lastDirection = Constants.DIRECTION.DOWN;
 		healthbar = Assets.getTex("textures/lofi_halls.png");
-        health = 100;
-        maxHeath = 100;
+        health = 1000;
+        maxHeath = 1000;
         statusMessages = new LinkedList<String>();
 	}
 	

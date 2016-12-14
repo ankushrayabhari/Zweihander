@@ -42,7 +42,7 @@ public abstract class PhysicalEntity extends Entity {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         if(massive) {
-        	fixtureDef.density = 10;
+        	fixtureDef.density = 1000;
         }
         else {
         	fixtureDef.density = 0;

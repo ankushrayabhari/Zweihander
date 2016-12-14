@@ -106,7 +106,7 @@ public class GameScreen implements Screen {
         drawEntities();
         batch.end();
         
-        if(Zweihander.DEBUG) debugRenderer.render(world, camera.combined);
+        //if(Zweihander.DEBUG) debugRenderer.render(world, camera.combined);
         
         //Render HUD
         hud.draw();

@@ -5,8 +5,8 @@
             "name": "Wand 1",
             "description": "A basic wand",
             "action": "WandFireAction",
-            "damage": 10,
-            "delay": 0.25,
+            "damage": 1,
+            "delay": 0.05,
             "texture": {
                 "file": "textures/lofi_obj.png",
                 "x": 96,

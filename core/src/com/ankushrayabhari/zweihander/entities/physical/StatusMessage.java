@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Align;
  * @author Ankush Rayabhari
  */
 public class StatusMessage extends PhysicalEntity {
-    private int distance;
+    private float distance;
     private BitmapFont font;
     private String message;
     private Color color;
@@ -27,7 +27,7 @@ public class StatusMessage extends PhysicalEntity {
 
     public StatusMessage(PhysicalEntity entity, GameScreen game, String message, Color color, Vector2 position) {
         super(game, 75, false, Constants.PhysicalEntityTypes.MESSAGE, position, new Vector2(2,1), 0, false);
-        distance = 1;
+        distance = 2;
         this.message = message;
         font = Assets.getFont("ui/white.fnt");
         this.entity = entity;
@@ -50,7 +50,7 @@ public class StatusMessage extends PhysicalEntity {
     @Override
     public void draw(SpriteBatch batch) {
         font.getData().setScale(1f);
-        font.setColor(Color.RED);
+        font.setColor(color);
 
         batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Vector3 screenCoordinates = this.getGame().getCamera().project(new Vector3(this.getBody().getPosition(), 0).add(-0.25f, 0.5f, 0));

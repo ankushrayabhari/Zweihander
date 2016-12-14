@@ -21,7 +21,7 @@ public class Projectile extends PhysicalEntity {
     private Sprite sprite;
 
     public Projectile(GameScreen game, ProjectileDef def, Constants.PhysicalEntityTypes type, Vector2 position, Vector2 fireDirection, int damage, int range, int speed) {
-        super(game, 50, false, type, position, new Vector2(1.0f,1.5f), (float) Math.atan2(-fireDirection.x, fireDirection.y), false);
+        super(game, 10, false, type, position, new Vector2(1.0f,1.5f), (float) Math.atan2(-fireDirection.x, fireDirection.y), false);
         this.range = range;
         this.speed = speed;
         this.damage = damage;

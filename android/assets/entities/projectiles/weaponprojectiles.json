@@ -1,0 +1,128 @@
+{
+    "weaponProjectiles": [
+        {
+            "id": 150,
+            "name": "wand projectile 1",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 35,
+                "y": 105,
+                "width": 3,
+                "height": 6
+            },
+            "width": 1,
+            "height": 1.5,
+            "rotation": 0
+        },
+
+        {
+            "id": 151,
+            "name": "wand projectile 2",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 35,
+                "y": 112,
+                "width": 3,
+                "height": 6
+            },
+            "width": 1,
+            "height": 1.5,
+            "rotation": 0
+        },
+        {
+            "id": 152,
+            "name": "wand projectile 3",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 98,
+                "y": 112,
+                "width": 4,
+                "height": 6
+            },
+            "width": 1,
+            "height": 1.5,
+            "rotation": 0
+        },
+        {
+            "id": 153,
+            "name": "wand projectile 4",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 99,
+                "y": 105,
+                "width": 3,
+                "height": 6
+            },
+            "width": 1,
+            "height": 1.5,
+            "spriteWidth": 1.5,
+            "spriteHeight": 1.5,
+            "rotation": 0
+        },
+        {
+            "id": 154,
+            "name": "sword projectile 1",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 80,
+                "y": 64,
+                "width": 8,
+                "height": 8
+            },
+            "width": 1,
+            "height": 1.5,
+            "spriteWidth": 1.5,
+            "spriteHeight": 1.5,
+            "rotation": 45
+        },
+        {
+            "id": 155,
+            "name": "sword projectile 2",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 80,
+                "y": 72,
+                "width": 8,
+                "height": 8
+            },
+            "width": 1,
+            "height": 1.5,
+            "spriteWidth": 1.5,
+            "spriteHeight": 1.5,
+            "rotation": 45
+        },
+        {
+            "id": 156,
+            "name": "sword projectile 3",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 80,
+                "y": 96,
+                "width": 8,
+                "height": 8
+            },
+            "width": 1,
+            "height": 1.5,
+            "spriteWidth": 1.5,
+            "spriteHeight": 1.5,
+            "rotation": 45
+        },
+        {
+            "id": 157,
+            "name": "arrow projectile 1",
+            "texture": {
+                "file": "textures/lofi_obj.png",
+                "x": 82,
+                "y": 41,
+                "width": 4,
+                "height": 7
+            },
+            "width": 1,
+            "height": 1.5,
+            "spriteWidth": 1,
+            "spriteHeight": 1.5,
+            "rotation": 0
+        }
+
+    ]
+}

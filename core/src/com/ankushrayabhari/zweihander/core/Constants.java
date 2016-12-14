@@ -13,8 +13,8 @@ public class Constants {
 	public static int SCREEN_HEIGHT = Gdx.graphics.getHeight();
 	
 	public static int BOUNDS = 1000;
-	public static int SITES = 2000;
-	public static int LLOYD_RELAXATION = 20000;
+	public static int SITES = 3000;
+	public static int LLOYD_RELAXATION = 30000;
 
     public static final float TIME_STEP = 1/60f;
     public static final int VELOCITY_ITERATIONS = 8;
@@ -25,16 +25,16 @@ public class Constants {
 	public static final short CATEGORY_ALLY_PROJECTILE = 4;
 	public static final short CATEGORY_ENEMY = 8;
 	public static final short CATEGORY_ENEMY_PROJECTILE = 16;
-	public static final short CATEGORY_PLAYER = 32;
+    public static final short CATEGORY_MESSAGE = 32;
 
 	public static final short MASK_WORLD = -1;
 	public static final short MASK_ALLY = CATEGORY_WORLD | CATEGORY_ENEMY_PROJECTILE;
 	public static final short MASK_ALLY_PROJECTILE =  CATEGORY_WORLD | CATEGORY_ENEMY;
 	public static final short MASK_ENEMY =  CATEGORY_WORLD | CATEGORY_ALLY_PROJECTILE;
 	public static final short MASK_ENEMY_PROJECTILE = CATEGORY_WORLD | CATEGORY_ALLY;
-	public static final short MASK_PLAYER = CATEGORY_WORLD | CATEGORY_ENEMY_PROJECTILE;
+    public static final short MASK_MESSAGE = 0;
 
-    public static enum FILTER_DATA {ALLY_PROJECTILE, ENEMY_PROJECTILE, ALLY, ENEMY, PLAYER}
+    public static enum PhysicalEntityTypes {ALLY_PROJECTILE, ENEMY_PROJECTILE, ALLY, ENEMY, MESSAGE}
 
     public static enum DIRECTION {UP, DOWN, LEFT, RIGHT}
 }

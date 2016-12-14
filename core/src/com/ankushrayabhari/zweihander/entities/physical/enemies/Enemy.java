@@ -2,7 +2,9 @@ package com.ankushrayabhari.zweihander.entities.physical.enemies;
 
 import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.core.Constants;
+import com.ankushrayabhari.zweihander.entities.physical.Damageable;
 import com.ankushrayabhari.zweihander.entities.physical.PhysicalEntity;
+import com.ankushrayabhari.zweihander.entities.physical.StatusMessage;
 import com.ankushrayabhari.zweihander.entities.physical.WalkAnimation;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
@@ -12,24 +14,36 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-public class Enemy extends PhysicalEntity {
+import java.util.LinkedList;
+
+public class Enemy extends PhysicalEntity implements Damageable {
 	private Vector2 movementDirection;
 	private final float SPEED;
 	private Constants.DIRECTION lastDirection;
 	private WalkAnimation walkAnimation;
 	private Texture healthbar;
+    private float health;
+    private LinkedList<String> statusMessages;
+    private int maxHeath, defense;
 	
 	public Enemy(GameScreen game) {
-		super(game, 10, 100, 100, false, Constants.FILTER_DATA.ENEMY, new Vector2(105, 105), new Vector2(2, 2), 0, true);
+		super(game, 10, false, Constants.PhysicalEntityTypes.ENEMY, new Vector2(105, 105), new Vector2(2, 2), 0, true);
 		movementDirection = new Vector2(0,0);
 		SPEED = 10;
 		walkAnimation = new WalkAnimation(true, 19, 2/SPEED);
 		lastDirection = Constants.DIRECTION.DOWN;
 		healthbar = Assets.getTex("textures/lofi_halls.png");
+        health = 100;
+        maxHeath = 100;
+        statusMessages = new LinkedList<String>();
 	}
 	
 	@Override
 	public void update(float delta) {
+        for(String message : this.statusMessages) {
+            this.getGame().addEntity(new StatusMessage(this, this.getGame(), message, com.badlogic.gdx.graphics.Color.RED, new Vector2(this.getBody().getPosition().x, this.getBody().getPosition().y+this.getDimensions().y)));
+        }
+        this.statusMessages.clear();
 		Vector2 playerPosition = this.getGame().getPlayer().getPosition();
 		Vector2 position = this.getPosition();
 		Vector2 direction = new Vector2(playerPosition.x-position.x, playerPosition.y-position.y);
@@ -87,17 +101,39 @@ public class Enemy extends PhysicalEntity {
 		batch.draw(healthbar, position.x - 1, position.y - 1 - 0.25f, this.getHealthPercentage() * 2, 0.25f, 31, 553, 21, 2, false, false);
 	}
 
-	@Override
-	public void onCollide(PhysicalEntity entity) {}
-
     @Override
-    public void dealDamage(float amount) {
-        this.health -= amount;
-        if(this.health <= 0) {
-            this.setDead(true);
-        }
+    public void onDeath() {
+        this.destroyBody();
     }
 
     @Override
-    public int getMaxHealth()  { return baseMaxHealth; }
+    public void onCollide(PhysicalEntity entity) {}
+
+    //Damageable Methods
+    @Override
+    public void dealHealth(float amount) {
+        if(getDefense() > 0.85*amount) amount *= 0.15;
+        health -= amount;
+        this.statusMessages.add("-"+Integer.toString((int) amount));
+        if(this.health < 0) {
+            this.setDead();
+        }
+    }
+    @Override
+    public void addHealth(float amount) {
+        this.health += amount;
+        if(this.health > getMaxHealth()) {
+            this.health = getMaxHealth();
+        }
+    }
+    @Override
+    public int getMaxHealth() { return this.maxHeath; }
+    @Override
+    public float getHealthPercentage() { return health/ (float) getMaxHealth(); }
+    @Override
+    public float getHealth() { return health; }
+    @Override
+    public int getDefense() { return defense; }
+    @Override
+    public void setDefense(int amount) { this.defense = amount; }
 }

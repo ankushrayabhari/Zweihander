@@ -89,10 +89,10 @@ public class ItemFactory {
             definition.setDelay(component.getFloat("delay"));
             String action = component.getString("action");
             if(action.equals("WandFireAction")) {
-                definition.setAction(new WandFireAction());
+                definition.setAction(new WandFireAction(component.getInt("damage")));
             }
             else if (action.equals("SwordFireAction")) {
-                definition.setAction(new WandFireAction());
+                definition.setAction(new WandFireAction(component.getInt("damage")));
             }
             itemDefs.add(definition);
         }

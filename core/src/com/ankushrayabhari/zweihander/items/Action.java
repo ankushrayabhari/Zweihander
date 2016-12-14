@@ -8,5 +8,5 @@ import com.ankushrayabhari.zweihander.screens.GameScreen;
  * @author Ankush Rayabhari
  */
 public interface Action {
-    public abstract void execute(GameScreen game);
+    void execute(GameScreen game);
 }

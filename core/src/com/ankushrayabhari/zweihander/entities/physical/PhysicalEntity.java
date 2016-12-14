@@ -18,15 +18,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public abstract class PhysicalEntity extends Entity {
 	private GameScreen game;
     private Body body;
-    protected float health;
-    protected int baseMaxHealth;
     private Vector2 dimensions;
     
-    protected PhysicalEntity(GameScreen game, int zIndex, int health, int maxHealth, boolean staticBody, Constants.FILTER_DATA filterData, Vector2 position, Vector2 dimensions, float angle, boolean massive) {
-    	super(zIndex);
+    protected PhysicalEntity(GameScreen game, int zIndex, boolean staticBody, Constants.PhysicalEntityTypes type, Vector2 position, Vector2 dimensions, float angle, boolean massive) {
+        super(zIndex);
     	this.game = game;
-        this.health = health;
-        this.baseMaxHealth = maxHealth;
     	this.dimensions = dimensions;
     	
         BodyDef bodyDef = new BodyDef();
@@ -53,7 +49,7 @@ public abstract class PhysicalEntity extends Entity {
         }
         fixtureDef.friction = 0;
         fixtureDef.restitution = 0;
-        switch (filterData) {
+        switch (type) {
             case ALLY:
                 fixtureDef.filter.categoryBits = Constants.CATEGORY_ALLY;
                 fixtureDef.filter.maskBits = Constants.MASK_ALLY;
@@ -72,10 +68,10 @@ public abstract class PhysicalEntity extends Entity {
                 fixtureDef.filter.maskBits = Constants.MASK_ENEMY_PROJECTILE;
                 body.setBullet(true);
                 break;
-            case PLAYER:
-            	fixtureDef.filter.categoryBits = Constants.CATEGORY_PLAYER;
-            	fixtureDef.filter.maskBits = Constants.MASK_PLAYER;
-            	break;
+            case MESSAGE:
+                fixtureDef.filter.categoryBits = Constants.CATEGORY_MESSAGE;
+                fixtureDef.filter.maskBits = Constants.MASK_MESSAGE;
+                break;
         }
         body.createFixture(fixtureDef);
         body.setUserData(this);
@@ -83,37 +79,18 @@ public abstract class PhysicalEntity extends Entity {
 
         this.setPosition(this.body.getPosition());
     }
-    
-    @Override
-    public void onDeath() {
+
+    protected void destroyBody() {
     	this.getGame().getWorld().destroyBody(body);
     }
     
     @Override
     public abstract void update(float delta);
-    
     @Override
     public abstract void draw(SpriteBatch batch);
-    
     public abstract void onCollide(PhysicalEntity entity);
-
-    public abstract void dealDamage(float amount);
-    
-    public void addHealth(float amount) {
-    	this.health += amount;
-        if(this.health > this.getMaxHealth()) health = getMaxHealth();
-    }
  
     public Body getBody() { return body; }
-   
     public Vector2 getDimensions() { return dimensions; }
-    
 	public GameScreen getGame() { return game; }
-
-    abstract protected int getMaxHealth();
-
-    public float getHealthPercentage() {
-        return health/(float) getMaxHealth();
-    }
-    public float getHealth() { return health; }
 }

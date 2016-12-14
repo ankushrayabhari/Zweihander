@@ -1,9 +1,7 @@
 package com.ankushrayabhari.zweihander.core.hud;
 
-import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -12,7 +10,6 @@ public class HeadsUpDisplay extends Stage {
     private Minimap minimap;
     private PlayerDisplay playerDisplay;
     private InventoryDisplay inventoryDisplay;
-    private Texture texture;
 
 	public HeadsUpDisplay(GameScreen game) {
         super(new ScreenViewport());
@@ -28,18 +25,7 @@ public class HeadsUpDisplay extends Stage {
 
         inventoryDisplay = new InventoryDisplay(game, Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250 - 700 / 55 * 31, 250, 375 / 55 * 31);
         this.addActor(inventoryDisplay);
-
-        texture = Assets.getTex("textures/lofi_halls.png");
 	}
-
-    @Override
-    public void draw() {
-        this.getBatch().begin();
-        this.getBatch().draw(texture, Gdx.graphics.getWidth() - 250, Gdx.graphics.getHeight() - 250 - 450 / 56 * 31, 250, 250 + 450 / 56 * 31, 9, 601, 55, 31, false, false);
-        this.getBatch().end();
-
-        super.draw();
-    }
 
     public void dispose() {
         super.dispose();

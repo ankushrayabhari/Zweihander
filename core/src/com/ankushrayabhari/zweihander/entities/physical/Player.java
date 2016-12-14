@@ -1,8 +1,8 @@
 package com.ankushrayabhari.zweihander.entities.physical;
 
 import com.ankushrayabhari.zweihander.core.Constants;
-import com.ankushrayabhari.zweihander.core.KeyboardController;
 import com.ankushrayabhari.zweihander.core.Inventory;
+import com.ankushrayabhari.zweihander.core.KeyboardController;
 import com.ankushrayabhari.zweihander.items.ItemFactory;
 import com.ankushrayabhari.zweihander.items.abilities.Ability;
 import com.ankushrayabhari.zweihander.items.misc.Armor;
@@ -13,21 +13,23 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.LinkedList;
+
 /**
  * Player class
  *
  * @author Ankush Rayabhari
  */
-public class Player extends PhysicalEntity {
+public class Player extends PhysicalEntity implements Damageable {
     private Vector2 movementDirection;
     private WalkAnimation walkAnimation;
     private Constants.DIRECTION lastDirection;
     private Inventory inventory;
-    private int level, xp, maxXp, baseMaxMana, baseDefense, baseAttack, baseSpeed, baseWisdom, baseVitality, baseDexterity;
-    private float mana;
-
+    private int level, xp, maxXp, baseMaxMana, baseDefense, baseAttack, baseSpeed, baseWisdom, baseVitality, baseDexterity, baseMaxHealth;
+    private float mana, health;
+    private LinkedList<String> statusMessages;
 	public Player(GameScreen game) {
-		super(game, 20, 100, 100, false, Constants.FILTER_DATA.PLAYER, new Vector2(100, 100), new Vector2(2, 2), 0, true);
+		super(game, 20, false, Constants.PhysicalEntityTypes.ALLY, new Vector2(100, 100), new Vector2(2, 2), 0, true);
 
         inventory = new Inventory(
                 game,
@@ -37,9 +39,10 @@ public class Player extends PhysicalEntity {
                 (Ring) ItemFactory.createItem(game, 90, ItemFactory.ItemTypes.Ring)
         );
 
-
+        statusMessages = new LinkedList<String>();
         level = 1;
 
+        baseMaxHealth = 100;
         baseMaxMana = 100;
         baseDefense = 10;
         baseAttack = 10;
@@ -47,6 +50,7 @@ public class Player extends PhysicalEntity {
         baseWisdom = 10;
         baseVitality = 10;
         baseDexterity = 10;
+
 
         xp = 50;
         maxXp = 100;
@@ -59,8 +63,8 @@ public class Player extends PhysicalEntity {
         lastDirection = Constants.DIRECTION.DOWN;
 
         inventory.addItem(ItemFactory.createItem(game, 1, ItemFactory.ItemTypes.Weapon));
+        inventory.addItem(ItemFactory.createItem(game, 2, ItemFactory.ItemTypes.Weapon));
         inventory.addItem(ItemFactory.createItem(game, 3, ItemFactory.ItemTypes.Weapon));
-        inventory.addItem(ItemFactory.createItem(game, 91, ItemFactory.ItemTypes.Ring));
         inventory.addItem(ItemFactory.createItem(game, 61, ItemFactory.ItemTypes.Armor));
         inventory.addItem(ItemFactory.createItem(game, 31, ItemFactory.ItemTypes.Ability));
         inventory.addItem(ItemFactory.createItem(game, 121, ItemFactory.ItemTypes.Potion));
@@ -68,8 +72,15 @@ public class Player extends PhysicalEntity {
 
 	@Override
 	public void update(float delta) {
+        for(String message : this.statusMessages) {
+            this.getGame().addEntity(new StatusMessage(this, this.getGame(), message, com.badlogic.gdx.graphics.Color.RED, new Vector2(this.getBody().getPosition().x, this.getBody().getPosition().y+this.getDimensions().y)));
+        }
+        this.statusMessages.clear();
+
         this.addHealth(1 / 600f * getVitality());
         this.addMana(1/600f*getWisdom());
+
+        inventory.getActiveWeapon().setDelayReduction(1/1000f*(float) getDexterity());
 
         //Movement
         movementDirection.set(0, 0);
@@ -144,27 +155,37 @@ public class Player extends PhysicalEntity {
         sprite.draw(batch);
 	}
 
-	@Override
-	public void onCollide(PhysicalEntity entity) {}
-    public Inventory getInventory() {
-        return inventory;
-    }
-    public void levelUp() {
-        level++;
-    }
-    public int getLevel() {
-        return level;
-    }
-
-    public float getXpPercentage() {
-        return (float) xp / (float) getMaxXp();
-    }
+    //XP and Leveling Methods
+    public int getLevel() { return level; }
+    public float getXpPercentage() { return (float) xp / (float) getMaxXp(); }
+    public int getXp() { return xp; }
     public int getMaxXp() { return maxXp; }
-
-    @Override
-    public int getMaxHealth() {
-        return this.baseMaxHealth +inventory.getHealthBonus();
+    public void addXp(int amount) {
+        xp += amount;
+        if(xp > 100) {
+            xp = 0;
+            level++;
+        }
     }
+
+    //Increase Statistics
+    public void increaseBaseAttack(int amount) { this.baseAttack += amount; }
+    public void increaseBaseSpeed(int amount) { this.baseSpeed += amount; }
+    public void increaseBaseDexterity(int amount) { this.baseDexterity += amount; }
+    public void increaseBaseVitality(int amount) { this.baseVitality += amount; }
+    public void increaseBaseWisdom(int amount) { this.baseWisdom += amount; }
+    public void increaseBaseHealth(int amount) { this.baseMaxHealth += amount; }
+    public void increaseBaseMana(int amount) { this.baseMaxMana += amount; }
+    public void increaseBaseDefense(int amount) { this.baseDefense += amount; }
+
+    //Standard Statistics
+    public int getAttack() { return baseAttack+inventory.getAttackBonus(); }
+    public int getSpeed() { return baseSpeed+inventory.getSpeedBonus(); }
+    public int getWisdom() { return baseWisdom+inventory.getWisdomBonus(); }
+    public int getVitality() { return baseVitality+inventory.getVitalityBonus(); }
+    public int getDexterity() { return baseDexterity+inventory.getDexterityBonus(); }
+
+    //Mana Related Methods
     public void dealMana(float amount) {
         mana -= amount;
         if(mana < 0) {
@@ -176,60 +197,44 @@ public class Player extends PhysicalEntity {
         if(mana > getMaxMana()) mana = getMaxMana();
     }
     public float getMana() { return mana; }
-    public int getAttack() {
-        return baseAttack+inventory.getAttackBonus();
+    public float getManaPercentage() { return mana/(float) getMaxMana(); }
+    public int getMaxMana() { return baseMaxMana+inventory.getManaBonus(); }
+
+    //Damageable Methods
+    @Override
+    public void dealHealth(float amount) {
+        if(getDefense() > 0.85*amount) amount *= 0.15;
+        health -= amount;
+        this.statusMessages.add("-"+Float.toString(amount));
+        if(this.health < 0) {
+            this.setDead();
+        }
     }
-    public int getDefense() {
-        return baseDefense+inventory.getDefenseBonus();
+    @Override
+    public void addHealth(float amount) {
+        this.health += amount;
+        if(this.health > getMaxHealth()) {
+            this.health = getMaxHealth();
+        }
     }
-    public int getSpeed() {
-        return baseSpeed+inventory.getSpeedBonus();
-    }
-    public int getMaxMana() {
-        return baseMaxMana+inventory.getManaBonus();
-    }
-    public int getWisdom() {
-        return baseWisdom+inventory.getWisdomBonus();
-    }
-    public int getVitality() {
-        return baseVitality+inventory.getVitalityBonus();
-    }
-    public int getDexterity() {
-        return baseDexterity+inventory.getDexterityBonus();
-    }
-    public void increaseBaseAttack(int amount) {
-        this.baseAttack += amount;
-    }
-    public void increaseBaseDefense(int amount) {
-        this.baseDefense += amount;
-    }
-    public void increaseBaseSpeed(int amount) {
-        this.baseSpeed += amount;
-    }
-    public void increaseBaseDexterity(int amount) {
-        this.baseDexterity += amount;
-    }
-    public void increaseBaseVitality(int amount) {
-        this.baseVitality += amount;
-    }
-    public void increaseBaseWisdom(int amount) {
-        this.baseWisdom += amount;
-    }
-    public void increaseBaseHealth(int amount) {
-        this.baseMaxHealth += amount;
-    }
-    public void increaseBaseMana(int amount) {
-        this.baseMaxMana += amount;
-    }
-    public float getManaPercentage() {
-        return mana/(float) getMaxMana();
+    @Override
+    public int getMaxHealth() { return this.baseMaxHealth +inventory.getHealthBonus(); }
+    @Override
+    public float getHealthPercentage() { return health/ (float) getMaxHealth(); }
+    @Override
+    public float getHealth() { return health; }
+    @Override
+    public int getDefense() { return baseDefense+inventory.getDefenseBonus(); }
+    @Override
+    public void setDefense(int amount) { this.baseDefense = amount; }
+
+    //Misc Getters and Entity Methods
+    @Override
+    public void onDeath() {
+        this.destroyBody();
     }
 
     @Override
-    public void dealDamage(float amount) {
-        this.health -= amount*(0.85*getDefense()/100);
-        if(this.health <= 0) {
-            this.setDead(true);
-        }
-    }
+    public void onCollide(PhysicalEntity entity) {}
+    public Inventory getInventory() { return inventory; }
 }

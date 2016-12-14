@@ -1,7 +1,6 @@
 package com.ankushrayabhari.zweihander.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
@@ -21,8 +20,8 @@ public abstract class Entity {
 	
 	public boolean isDead() { return dead; }
 	
-	public void setDead(boolean dead) {
-        this.dead = dead;
+	public void setDead() {
+        this.dead = true;
         this.zIndex = 100;
     }
 	

@@ -2,6 +2,7 @@ package com.ankushrayabhari.zweihander.entities.physical.projectiles;
 
 import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.core.Constants;
+import com.ankushrayabhari.zweihander.entities.physical.Damageable;
 import com.ankushrayabhari.zweihander.entities.physical.PhysicalEntity;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,14 +20,14 @@ public class Projectile extends PhysicalEntity {
     private int range, speed, damage;
     private Sprite sprite;
 
-    public Projectile(GameScreen game, Constants.FILTER_DATA filterData, Vector2 originalPosition, Vector2 fireDirection, int speed, int range, int damange) {
-        super(game, 50, 1, 1, false, filterData, originalPosition, new Vector2(1.5f,1.5f), (float) Math.atan2(-fireDirection.x, fireDirection.y), false);
+    public Projectile(GameScreen game, ProjectileDef def, Constants.PhysicalEntityTypes type, Vector2 position, Vector2 fireDirection, int damage, int range, int speed) {
+        super(game, 50, false, type, position, new Vector2(1.0f,1.5f), (float) Math.atan2(-fireDirection.x, fireDirection.y), false);
         this.range = range;
         this.speed = speed;
-        this.damage = 10;
-        this.originalPosition = originalPosition;
+        this.damage = damage;
+        this.originalPosition = position;
         this.movementDirection = fireDirection.scl(speed);
-        sprite = new Sprite(new TextureRegion(Assets.getTex("textures/lofi_obj.png"), 80, 72, 8, 8));
+        sprite = new Sprite(new TextureRegion(Assets.getTex("textures/lofi_obj.png"), 80, 96, 8, 8));
     }
     
     @Override
@@ -41,7 +42,7 @@ public class Projectile extends PhysicalEntity {
     @Override
     public void update(float delta) {
         if(originalPosition.dst2(this.getBody().getPosition()) >= range) {
-            this.setDead(true);
+            this.setDead();
             return;
         }
         this.getBody().setLinearVelocity(movementDirection);
@@ -49,18 +50,12 @@ public class Projectile extends PhysicalEntity {
 
     @Override
     public void onCollide(PhysicalEntity entity) {
-        if(entity != null) entity.dealDamage(damage);
-    	this.setDead(true);
+        if(entity instanceof Damageable) ((Damageable) entity).dealHealth(damage);
+    	this.setDead();
     }
 
     @Override
-    public void dealDamage(float amount) {
-        this.health -= amount;
-        if(this.health <= 0) {
-            this.setDead(true);
-        }
-    }
-
-    @Override
-    public int getMaxHealth()  { return baseMaxHealth; }
+    public void onDeath() {
+        this.destroyBody();
+    };
 }

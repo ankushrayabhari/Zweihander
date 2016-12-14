@@ -5,6 +5,7 @@
             "name": "Wand 1",
             "description": "A basic wand",
             "action": "WandFireAction",
+            "damage": 10,
             "delay": 0.25,
             "texture": {
                 "file": "textures/lofi_obj.png",
@@ -28,6 +29,7 @@
             "description": "An intermediate wand",
             "action": "WandFireAction",
             "delay": 0.25,
+            "damage": 20,
             "texture": {
                 "file": "textures/lofi_obj.png",
                 "x": 104,
@@ -49,6 +51,7 @@
             "name": "Wand 3",
             "description": "An advanced wand",
             "action": "WandFireAction",
+            "damage": 30,
             "delay": 0.25,
             "texture": {
                 "file": "textures/lofi_obj.png",
@@ -72,6 +75,7 @@
             "description": "An expert wand",
             "action": "WandFireAction",
             "delay": 0.25,
+            "damage": 40,
             "texture": {
                 "file": "textures/lofi_obj.png",
                 "x": 120,
@@ -94,6 +98,7 @@
             "description": "A basic sword",
             "action": "SwordFireAction",
             "delay": 0.16666667,
+            "damage": 10,
             "texture": {
                 "file": "textures/lofi_obj.png",
                 "x": 40,
@@ -116,6 +121,7 @@
             "description": "An intermediate sword",
             "action": "SwordFireAction",
             "delay": 0.16666667,
+            "damage": 20,
             "texture": {
                 "file": "textures/lofi_obj.png",
                 "x": 48,
@@ -138,6 +144,7 @@
             "description": "An advanced sword",
             "action": "SwordFireAction",
             "delay": 0.16666667,
+            "damage": 30,
             "texture": {
                 "file": "textures/lofi_obj.png",
                 "x": 56,
@@ -160,6 +167,7 @@
             "description": "An expert sword",
             "action": "SwordFireAction",
             "delay": 0.16666667,
+            "damage": 40,
             "texture": {
                 "file": "textures/lofi_obj.png",
                 "x": 64,

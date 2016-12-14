@@ -7,8 +7,8 @@ import com.ankushrayabhari.zweihander.Zweihander;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 1280;
-        config.height = 720;
+        config.width = 1366;
+        config.height = 768;
 		new LwjglApplication(new Zweihander(), config);
 	}
 }

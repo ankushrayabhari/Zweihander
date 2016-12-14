@@ -8,5 +8,5 @@ import com.ankushrayabhari.zweihander.screens.GameScreen;
  * @author Ankush Rayabhari
  */
 public interface Consumable {
-    public abstract void consume(GameScreen game);
+    void consume(GameScreen game);
 }

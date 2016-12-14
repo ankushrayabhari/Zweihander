@@ -22,16 +22,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class GameScreen implements Screen {
 	private Zweihander zweihander; // move to superclass later (probably)
     private KeyboardController inputController;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private Array<Entity> entityList;
+	private LinkedList<Entity> entityList, addList;
     private EntityComparator comparator;
 	private Player player;
     private World world;
@@ -56,7 +56,8 @@ public class GameScreen implements Screen {
         shapeRenderer = new ShapeRenderer();
         if(Zweihander.DEBUG) debugRenderer = new Box2DDebugRenderer();
 
-        entityList = new Array<Entity>();
+        entityList = new LinkedList<Entity>();
+        addList = new LinkedList<Entity>();
 
         comparator = new EntityComparator();
 
@@ -89,7 +90,7 @@ public class GameScreen implements Screen {
 		
         //Update all entities
         world.step(Constants.TIME_STEP, Constants.VELOCITY_ITERATIONS, Constants.POSITION_ITERATIONS);
-        entityList.sort(comparator);
+
         updateEntities(delta);
         
         camera.position.set(player.getBody().getPosition(), 0);
@@ -112,6 +113,12 @@ public class GameScreen implements Screen {
 	}
 
     private void updateEntities(float delta) {
+        for(Entity entity : addList) {
+            entityList.add(entity);
+        }
+        addList.clear();
+
+        entityList.sort(comparator);
         Iterator<Entity> iterator = entityList.iterator();
         while(iterator.hasNext()) {
         	Entity entity = iterator.next();
@@ -137,7 +144,7 @@ public class GameScreen implements Screen {
     }
 
     public Entity addEntity(Entity entity) {
-        entityList.add(entity);
+        addList.add(entity);
         return entity;
     }
 

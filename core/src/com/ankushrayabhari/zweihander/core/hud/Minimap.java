@@ -29,6 +29,7 @@ public class Minimap extends Actor implements Disposable {
 
     @Override
     public void draw (Batch batch, float parentAlpha) {
+        batch.draw(texture, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 9, 601, 55, 31, false, false);
         batch.end();
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(Color.DARK_GRAY);

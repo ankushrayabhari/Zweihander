@@ -40,11 +40,12 @@ public class StatusMessage extends PhysicalEntity {
         this.getBody().setTransform(entity.getBody().getPosition().x, entity.getBody().getPosition().y + entity.getDimensions().y + this.getBody().getPosition().y - originalPosition.y, 0);
         originalPosition.set(entity.getBody().getPosition().x, entity.getBody().getPosition().y + entity.getDimensions().y);
 
-        if(this.getBody().getPosition().dst2(originalPosition) > distance*distance) {
+        if(this.getBody().getPosition().dst2(originalPosition) > distance*distance || entity.isDead()) {
             this.setDead();
         }
-
-        this.getBody().setLinearVelocity(0, 5);
+        else {
+            this.getBody().setLinearVelocity(0, 5);
+        }
     }
 
     @Override

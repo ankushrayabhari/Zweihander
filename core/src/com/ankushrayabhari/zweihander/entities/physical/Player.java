@@ -1,5 +1,6 @@
 package com.ankushrayabhari.zweihander.entities.physical;
 
+import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.core.Constants;
 import com.ankushrayabhari.zweihander.core.Inventory;
 import com.ankushrayabhari.zweihander.core.KeyboardController;
@@ -9,8 +10,10 @@ import com.ankushrayabhari.zweihander.items.misc.Armor;
 import com.ankushrayabhari.zweihander.items.misc.Ring;
 import com.ankushrayabhari.zweihander.items.weapons.Weapon;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.LinkedList;
@@ -22,12 +25,14 @@ import java.util.LinkedList;
  */
 public class Player extends PhysicalEntity implements Damageable {
     private Vector2 movementDirection;
-    private WalkAnimation walkAnimation;
     private Constants.DIRECTION lastDirection;
     private Inventory inventory;
     private int level, xp, maxXp, baseMaxMana, baseDefense, baseAttack, baseSpeed, baseWisdom, baseVitality, baseDexterity, baseMaxHealth;
     private float mana, health;
     private LinkedList<String> statusMessages;
+
+    private Sprite leftSprite, waterLeftSprite, downSprite, waterDownSprite, rightSprite, waterRightSprite, upSprite, waterUpSprite, currentSprite;
+
 	public Player(GameScreen game) {
 		super(game, 20, false, Constants.PhysicalEntityTypes.ALLY, new Vector2(100, 100), new Vector2(2, 2), 0, true);
 
@@ -50,8 +55,6 @@ public class Player extends PhysicalEntity implements Damageable {
         baseWisdom = 10;
         baseVitality = 10;
         baseDexterity = 10;
-
-
         xp = 50;
         maxXp = 100;
 
@@ -59,8 +62,20 @@ public class Player extends PhysicalEntity implements Damageable {
         health = getMaxHealth();
 
 		movementDirection = new Vector2(0,0);
-        walkAnimation = new WalkAnimation(false, 19, 2/getSpeed());
+        Texture characterTex = Assets.getTex("textures/lofi_char.png");
+
+        rightSprite = new Sprite(new TextureRegion(characterTex, 64, 240, 8, 8));
+        downSprite = new Sprite(new TextureRegion(characterTex, 72, 240, 8, 8));
+        leftSprite = new Sprite(new TextureRegion(characterTex, 80, 240, 8, 8));
+        upSprite = new Sprite(new TextureRegion(characterTex, 88, 240, 8, 8));
+
+        waterRightSprite = new Sprite(new TextureRegion(characterTex, 64, 240, 8, 6));
+        waterDownSprite = new Sprite(new TextureRegion(characterTex, 72, 240, 8, 6));
+        waterLeftSprite = new Sprite(new TextureRegion(characterTex, 80, 240, 8, 6));
+        waterUpSprite = new Sprite(new TextureRegion(characterTex, 88, 240, 8, 6));
+
         lastDirection = Constants.DIRECTION.DOWN;
+        currentSprite = downSprite;
 
         inventory.addItem(ItemFactory.createItem(game, 1, ItemFactory.ItemTypes.Weapon));
         inventory.addItem(ItemFactory.createItem(game, 2, ItemFactory.ItemTypes.Weapon));
@@ -121,38 +136,51 @@ public class Player extends PhysicalEntity implements Damageable {
 
 	@Override
 	public void draw(SpriteBatch batch) {
-        Sprite sprite;
         boolean water = this.getGame().getMap().isWater(this.getPosition());
-    	if (movementDirection.isZero()) {
-	        sprite = walkAnimation.getStaticSprite(lastDirection, water);
-	    }
-	    else {
-	        if(Math.abs(movementDirection.y) > Math.abs(movementDirection.x)) {
-	            if(movementDirection.y < 0) {
-	                lastDirection = Constants.DIRECTION.DOWN;
-	                sprite = walkAnimation.getMovingSprite(lastDirection, water);
-	            }
-	            else {
-	                lastDirection = Constants.DIRECTION.UP;
-	                sprite = walkAnimation.getMovingSprite(lastDirection, water);
-	            }
-	        }
-	        else {
-	            if(movementDirection.x > 0) {
-	                lastDirection = Constants.DIRECTION.RIGHT;
-	                sprite = walkAnimation.getMovingSprite(lastDirection, water);
-	            }
-	            else {
-	                lastDirection = Constants.DIRECTION.LEFT;
-	                sprite = walkAnimation.getMovingSprite(lastDirection, water);
-	            }
-	        }
-	    }
-    	
+        if (movementDirection.isZero()) {
+            switch(lastDirection) {
+                case DOWN:
+                    currentSprite = water ? waterDownSprite : downSprite;
+                    break;
+                case LEFT:
+                    currentSprite = water ? waterLeftSprite : leftSprite;
+                    break;
+                case RIGHT:
+                    currentSprite = water ? waterRightSprite : rightSprite;
+                    break;
+                case UP:
+                    currentSprite = water ? waterUpSprite : upSprite;
+                    break;
+            }
+
+        }
+        else {
+            if(Math.abs(movementDirection.y) > Math.abs(movementDirection.x)) {
+                if(movementDirection.y < 0) {
+                    currentSprite = water ? waterDownSprite : downSprite;
+                    lastDirection = Constants.DIRECTION.DOWN;
+                }
+                else {
+                    currentSprite = water ? waterUpSprite : upSprite;
+                    lastDirection = Constants.DIRECTION.UP;
+                }
+            }
+            else {
+                if(movementDirection.x > 0) {
+                    currentSprite = water ? waterRightSprite : rightSprite;
+                    lastDirection = Constants.DIRECTION.RIGHT;
+                }
+                else {
+                    currentSprite = water ? waterLeftSprite : leftSprite;
+                    lastDirection = Constants.DIRECTION.LEFT;
+                }
+            }
+        }
+
         Vector2 position = this.getPosition();
         float height = water ? 1.5f : 2;
-        sprite.setBounds(position.x - 1, position.y - 1, 2, height);
-        sprite.draw(batch);
+        currentSprite.setBounds(position.x - 1, position.y - 1, 2, height);
+        currentSprite.draw(batch);
 	}
 
     //XP and Leveling Methods

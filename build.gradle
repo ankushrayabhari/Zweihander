@@ -8,8 +8,7 @@ buildscript {
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
         classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
-        classpath 'org.multi-os-engine:moe-gradle:1.2.3'
+        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.0'
     }
 }
 
@@ -17,11 +16,11 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '0.2'
+    version = '0.3'
     ext {
         appName = "Zweihander"
         gdxVersion = '1.9.4'
-        roboVMVersion = '2.2.0'
+        roboVMVersion = '2.3.0'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
@@ -45,6 +44,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
     }
 }
 
@@ -67,8 +67,8 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
-        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
     }
 }
 
@@ -99,8 +99,8 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
-        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion:sources"
+        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"
         compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion:sources"
     }
 }
@@ -112,23 +112,10 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
         compile 'org.apache.commons:commons-math3:3.6.1'
-    }
-}
-
-project(":ios-moe") {
-    apply plugin: "moe"
-
-    configurations { natives }
-
-    dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-moe:$gdxVersion"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
-        natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
     }
 }
 

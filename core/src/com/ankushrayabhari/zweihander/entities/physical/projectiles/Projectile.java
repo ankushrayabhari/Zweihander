@@ -57,5 +57,8 @@ public class Projectile extends PhysicalEntity {
     @Override
     public void onDeath() {
         this.destroyBody();
-    };
+    }
+
+    @Override
+    public void endCollide(PhysicalEntity entity) {}
 }

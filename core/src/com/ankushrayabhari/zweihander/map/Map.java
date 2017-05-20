@@ -23,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Disposable;
 
+import java.util.Collections;
 import java.util.Random;
 
 public class Map implements Disposable {
@@ -42,7 +43,7 @@ public class Map implements Disposable {
 		ShaderProgram.pedantic = false;
 		textureShader = new ShaderProgram(Gdx.files.internal("shaders/PassthroughShader.vsh"), Gdx.files.internal("shaders/PassthroughShader.fsh"));
 		pixmap = new Pixmap(Constants.BOUNDS, Constants.BOUNDS, Format.RGBA8888);
-		Pixmap.setBlending(Blending.None);
+		pixmap.setBlending(Blending.None);
 		for(Center center : graph.getCenterList()) {
 			int length = center.corners.size()+1;
 			
@@ -51,9 +52,9 @@ public class Map implements Disposable {
 			points[0] = (float) center.location.x;
 			points[1] = (float) center.location.y;
 			
-			//Sort the vhows it going my friendertices in clockwise order
+			//Sort the vertices in clockwise order
 			cornerComparator.setCenterPoint(center.location);
-			center.corners.sort(cornerComparator);
+			Collections.sort(center.corners, cornerComparator);
 			
 			for(int i = 0; i < center.corners.size(); i++) {
 				points[2*i+2] = (float) center.corners.get(i).location.x;

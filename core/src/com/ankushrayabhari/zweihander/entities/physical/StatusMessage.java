@@ -55,12 +55,14 @@ public class StatusMessage extends PhysicalEntity {
 
         batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Vector3 screenCoordinates = this.getGame().getCamera().project(new Vector3(this.getBody().getPosition(), 0).add(-0.25f, 0.5f, 0));
-        System.out.println(screenCoordinates.toString());
-        Gdx.app.log("", message);
         font.draw(batch, message, screenCoordinates.x, screenCoordinates.y, 8, Align.center, false);
     }
 
+    @Override
     public void onCollide(PhysicalEntity entity){}
+
+    @Override
+    public void endCollide(PhysicalEntity entity){}
 
     @Override
     public void onDeath() {

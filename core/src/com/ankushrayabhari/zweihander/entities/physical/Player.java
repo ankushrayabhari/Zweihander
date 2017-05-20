@@ -30,8 +30,8 @@ public class Player extends PhysicalEntity implements Damageable {
     private int level, xp, maxXp, baseMaxMana, baseDefense, baseAttack, baseSpeed, baseWisdom, baseVitality, baseDexterity, baseMaxHealth;
     private float mana, health;
     private LinkedList<String> statusMessages;
-
     private Sprite leftSprite, waterLeftSprite, downSprite, waterDownSprite, rightSprite, waterRightSprite, upSprite, waterUpSprite, currentSprite;
+    private LootBag currentBag;
 
 	public Player(GameScreen game) {
 		super(game, 20, false, Constants.PhysicalEntityTypes.ALLY, new Vector2(100, 100), new Vector2(2, 2), 0, true);
@@ -43,6 +43,8 @@ public class Player extends PhysicalEntity implements Damageable {
                 (Ability) ItemFactory.createItem(game, 30, ItemFactory.ItemTypes.Ability),
                 (Ring) ItemFactory.createItem(game, 90, ItemFactory.ItemTypes.Ring)
         );
+
+        currentBag = null;
 
         statusMessages = new LinkedList<String>();
         level = 1;
@@ -256,13 +258,19 @@ public class Player extends PhysicalEntity implements Damageable {
     @Override
     public void setDefense(int amount) { this.baseDefense = amount; }
 
-    //Misc Getters and Entity Methods
-    @Override
-    public void onDeath() {
-        this.destroyBody();
-    }
-
+    //Misc Getters/Setters and Entity Methods
     @Override
     public void onCollide(PhysicalEntity entity) {}
+
+    @Override
+    public void endCollide(PhysicalEntity entity) {}
+
     public Inventory getInventory() { return inventory; }
+
+    public void setLootBag(LootBag bag) {
+        this.currentBag = bag;
+    }
+
+    public LootBag getCurrentBag() { return currentBag; }
+
 }

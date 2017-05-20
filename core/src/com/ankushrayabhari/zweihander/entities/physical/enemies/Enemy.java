@@ -2,10 +2,14 @@ package com.ankushrayabhari.zweihander.entities.physical.enemies;
 
 import com.ankushrayabhari.zweihander.core.Assets;
 import com.ankushrayabhari.zweihander.core.Constants;
+import com.ankushrayabhari.zweihander.entities.EntityFactory;
 import com.ankushrayabhari.zweihander.entities.physical.Damageable;
+import com.ankushrayabhari.zweihander.entities.physical.LootBag;
 import com.ankushrayabhari.zweihander.entities.physical.PhysicalEntity;
 import com.ankushrayabhari.zweihander.entities.physical.StatusMessage;
 import com.ankushrayabhari.zweihander.entities.physical.WalkAnimation;
+import com.ankushrayabhari.zweihander.items.Item;
+import com.ankushrayabhari.zweihander.items.ItemFactory;
 import com.ankushrayabhari.zweihander.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Enemy extends PhysicalEntity implements Damageable {
@@ -102,12 +107,19 @@ public class Enemy extends PhysicalEntity implements Damageable {
 	}
 
     @Override
-    public void onDeath() {
-        this.destroyBody();
-    }
+    public void onCollide(PhysicalEntity entity) {}
 
     @Override
-    public void onCollide(PhysicalEntity entity) {}
+    public void endCollide(PhysicalEntity entity) {}
+
+    @Override
+    public void onDeath() {
+        ArrayList<Item> initialItems = new ArrayList<Item>();
+        initialItems.add(ItemFactory.createItem(this.getGame(), 123, ItemFactory.ItemTypes.Potion));
+
+        this.getGame().addEntity(new LootBag(this.getGame(), this.getPosition(), initialItems));
+        super.onDeath();
+    }
 
     //Damageable Methods
     @Override

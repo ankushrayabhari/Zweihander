@@ -11,10 +11,11 @@ public class ItemDef {
     private String name, description;
     private TextureRegion icon;
     private int id, attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus, vitalityBonus, wisdomBonus, dexterityBonus;
+    private ItemFactory.ItemTypes type;
 
     public ItemDef() {}
 
-    public ItemDef(String name, String description, TextureRegion icon, int attackBonus, int defenseBonus, int speedBonus, int healthBonus, int manaBonus, int vitalityBonus, int wisdomBonus) {
+    public ItemDef(String name, String description, TextureRegion icon, int attackBonus, int defenseBonus, int speedBonus, int healthBonus, int manaBonus, int vitalityBonus, int wisdomBonus, ItemFactory.ItemTypes type) {
         this.name = name;
         this.description = description;
         this.icon = icon;
@@ -25,6 +26,7 @@ public class ItemDef {
         this.manaBonus = manaBonus;
         this.vitalityBonus = vitalityBonus;
         this.wisdomBonus = wisdomBonus;
+        this.type = type;
     }
 
     public String getName() {
@@ -99,4 +101,6 @@ public class ItemDef {
     public void setDexterityBonus(int dexterityBonus) {
         this.dexterityBonus = dexterityBonus;
     }
+    public ItemFactory.ItemTypes getType() { return this.type; }
+    public void setType(ItemFactory.ItemTypes type) { this.type = type; }
 }

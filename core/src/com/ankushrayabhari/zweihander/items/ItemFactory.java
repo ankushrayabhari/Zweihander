@@ -37,8 +37,8 @@ public class ItemFactory {
         populateWeapons(json);
         populateAbilities(json);
         populatePotions(json);
-        populateItem(json, "items/armors.json", "armors");
-        populateItem(json, "items/rings.json", "rings");
+        populateItem(json, "items/armors.json", "armors", ItemTypes.Armor);
+        populateItem(json, "items/rings.json", "rings", ItemTypes.Ring);
 
         comparator = new Comparator<ItemDef>() {
             @Override
@@ -94,6 +94,8 @@ public class ItemFactory {
             else if (action.equals("SwordFireAction")) {
                 definition.setAction(new WandFireAction(component.getInt("damage")));
             }
+
+            definition.setType(ItemTypes.Weapon);
             itemDefs.add(definition);
         }
     }
@@ -111,6 +113,7 @@ public class ItemFactory {
                 definition.setAction(new TomeAction(component.getInt("hpHeal")));
             }
 
+            definition.setType(ItemTypes.Ability);
             itemDefs.add(definition);
         }
     }
@@ -122,15 +125,18 @@ public class ItemFactory {
             ItemFactory.setFields(definition, component);
             definition.setHealAmount(component.getInt("healAmount"));
             definition.setManaHealAmount(component.getInt("manaHealAmount"));
+
+            definition.setType(ItemTypes.Potion);
             itemDefs.add(definition);
         }
     }
-    private static void populateItem(JsonReader json, String fileName, String section) {
+    private static void populateItem(JsonReader json, String fileName, String section, ItemTypes type) {
         JsonValue base = json.parse(Gdx.files.internal(fileName));
         for (JsonValue component : base.get(section))
         {
             ItemDef definition = new ItemDef();
             ItemFactory.setFields(definition, component);
+            definition.setType(type);
             itemDefs.add(definition);
         }
     }

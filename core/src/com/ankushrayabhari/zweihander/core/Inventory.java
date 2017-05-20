@@ -27,7 +27,7 @@ public class Inventory {
 
     public Inventory(GameScreen game, Weapon startWeapon, Armor startArmor, Ability startAbility, Ring startRing) {
         this.game = game;
-        items =  new ArrayList<Item>(InventorySize);
+        items = new ArrayList<Item>(InventorySize);
         activeWeapon = startWeapon;
         activeRing = startRing;
         activeArmor = startArmor;

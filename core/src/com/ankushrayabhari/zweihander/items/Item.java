@@ -7,6 +7,7 @@ public class Item {
 	private String description;
 	private TextureRegion icon;
     private int id, attackBonus, defenseBonus, speedBonus, healthBonus, manaBonus, wisdomBonus, vitalityBonus, dexterityBonus;
+    private ItemFactory.ItemTypes type;
 
 	public Item(ItemDef itemDef) {
         this.name = itemDef.getName();
@@ -21,6 +22,7 @@ public class Item {
         this.vitalityBonus = itemDef.getVitalityBonus();
         this.wisdomBonus = itemDef.getWisdomBonus();
         this.dexterityBonus = itemDef.getDexterityBonus();
+        this.type = itemDef.getType();
     }
 
 	public String getName() {
@@ -53,4 +55,5 @@ public class Item {
         return dexterityBonus;
     }
     public int getId() { return id; }
+    public ItemFactory.ItemTypes getType() { return type; }
 }

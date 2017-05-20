@@ -72,6 +72,10 @@ public abstract class PhysicalEntity extends Entity {
                 fixtureDef.filter.categoryBits = Constants.CATEGORY_MESSAGE;
                 fixtureDef.filter.maskBits = Constants.MASK_MESSAGE;
                 break;
+            case LOOTBAG:
+                fixtureDef.filter.categoryBits = Constants.CATEGORY_LOOTBAG;
+                fixtureDef.filter.maskBits = Constants.MASK_LOOTBAG;
+                fixtureDef.density = 0;
         }
         body.createFixture(fixtureDef);
         body.setUserData(this);
@@ -89,7 +93,13 @@ public abstract class PhysicalEntity extends Entity {
     @Override
     public abstract void draw(SpriteBatch batch);
     public abstract void onCollide(PhysicalEntity entity);
- 
+    public abstract void endCollide(PhysicalEntity entity);
+
+    @Override
+    public void onDeath() {
+        this.destroyBody();
+    }
+
     public Body getBody() { return body; }
     public Vector2 getDimensions() { return dimensions; }
 	public GameScreen getGame() { return game; }
